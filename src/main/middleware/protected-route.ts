@@ -1,6 +1,6 @@
 import { NextFunction, Response } from 'express';
 
-import { ApiErrorsName, ApiErrorsType } from '../../constants';
+import { ApiErrorsName, ApiErrorsType, UserRoles } from '../../constants';
 import apiMessages from '../../locales/pt/api-server.json';
 import CustomError from '../../olyn/custom-error';
 import { ExpressRequestSession, Session } from '../adapters/adapters.types';
@@ -9,11 +9,11 @@ import { checkToken } from './checkToken';
 
 type ProtectedRouteRole =
   | {
-      allowedRoles: ReadonlyArray<string>;
+      allowedRoles: ReadonlyArray<`${UserRoles}`>;
       notAllowedRoles?: never;
     }
   | {
-      notAllowedRoles: ReadonlyArray<string>;
+      notAllowedRoles: ReadonlyArray<`${UserRoles}`>;
       allowedRoles?: never;
     };
 

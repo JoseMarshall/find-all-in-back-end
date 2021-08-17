@@ -16,7 +16,7 @@ export function makeFindOneEntity<D extends Document, K>({
           [Common.MongoId]: 0,
           ...(options.projection ?? {}),
         })
-        ?.populate(options.populateOptions ?? { path: '' })
+        ?.populate(options.populateOptions)
         .exec()
     );
 

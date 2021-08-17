@@ -1,6 +1,6 @@
 import { Request, Response, Router } from 'express';
 
-import { ApiErrorsName, ApiErrorsType } from '../../../constants';
+import { ApiErrorsName, ApiErrorsType, ServerConstants } from '../../../constants';
 import apiMessages from '../../../locales/pt/api-server.json';
 import { adaptExpressRoute, makeMsgBody } from '../../../main/adapters/express-route-adapter';
 import CustomError from '../../../olyn/custom-error';
@@ -9,7 +9,7 @@ import makeLoginController from '../../factories/auth/login';
 export default (router: Router) => {
   router.get('/logout', (_req: Request, res: Response) => {
     res
-      .clearCookie('find-all-in-session', {
+      .clearCookie(ServerConstants.CookieSession, {
         sameSite: 'none',
         secure: process.env.NODE_ENV === 'production',
       })

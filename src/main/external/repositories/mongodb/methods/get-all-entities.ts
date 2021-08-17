@@ -1,7 +1,7 @@
 import { Document } from 'mongoose';
 
 import { Common, TimeStamps } from '../../../../../constants';
-import { safeParseInt } from '../../../../../v1/utils';
+import { safeParseInt } from '../../../../../utils';
 import { queryGuard } from '../helpers';
 import { GetAllEntitiesAggregatedData, MakeGetAllEntityData } from '../mongoose.types';
 

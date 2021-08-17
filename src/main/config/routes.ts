@@ -1,15 +1,25 @@
 import { Express, NextFunction, Request, Response, Router } from 'express';
 import { readdirSync } from 'fs';
+import path from 'path';
 
 import { ApiErrorsName, ApiErrorsType, ServerConstants } from '../../constants';
 import apiMessages from '../../locales/pt/api-server.json';
 import CustomError from '../../olyn/custom-error';
 import { logger } from '../../olyn/logger';
+import { addDays } from '../../utils';
 import { ExpressRequestSession } from '../adapters/adapters.types';
 import { makeMsgBody } from '../adapters/express-route-adapter';
 import { checkToken } from '../middleware/checkToken';
 
 export default (app: Express): void => {
+  // if (process.env.NODE_ENV === 'development') {
+  //   app.all('*', [], (_req: Request, _res: Response, next: NextFunction) => {
+  //     console.log('req.cookies :>> ', _req.cookies);
+  //     // logger.info(`${req.hostname} ${req.method}: ${req.url}`);
+  //     next();
+  //   });
+  // }
+
   app.get('/api', (_req: Request, res: Response) =>
     res.status(200).json({
       msg: 'Welcome to Find All In - API',
@@ -20,11 +30,17 @@ export default (app: Express): void => {
   /**
    * Return a new CSRF-TOKEN
    */
-  app.get('/csrf-token', (req: Request, res: Response) => {
-    res.send({ csrfToken: req.csrfToken() });
+  app.get('/api/csrf-token', (req: Request, res: Response) => {
+    res.cookie('csrf-token', req.csrfToken(), {
+      httpOnly: true,
+      sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'strict',
+      expires: addDays(new Date(), 365), // Expires in 1y
+      secure: process.env.NODE_ENV === 'production',
+    });
+    res.status(200).json({ csrfToken: true });
   });
 
-  app.get('/auth-with-cookie', checkToken, (req: ExpressRequestSession, res: Response) => {
+  app.get('/api/auth-with-cookie', checkToken, (req: ExpressRequestSession, res: Response) => {
     res.status(200).json(
       makeMsgBody(
         { i18nCode: 'S-3009', defaultValue: apiMessages['S-3009'] },
@@ -40,9 +56,10 @@ export default (app: Express): void => {
   /**
    * Load all routes from v1 routes folder
    */
-  readdirSync(`${__dirname}/../v1/routes`).map(async file => {
+
+  readdirSync(path.resolve(__dirname, '../../v1/routes')).map(async file => {
     if (!file.includes('__tests__')) {
-      const router = (await import(`../v1/routes/${file}`)).default(Router());
+      const router = (await import(`../../v1/routes/${file}`)).default(Router());
       app.use(`/api/v1/${file}`, router);
     }
   });
@@ -50,18 +67,43 @@ export default (app: Express): void => {
   /**
    * In case of api v2
    */
-  // readdirSync(`${__dirname}/../v2/routes`).map(async file => {
+  // readdirSync(path.resolve(__dirname, '../../v2/routes')).map(async file => {
   //   if (!file.includes('__tests__')) {
-  //     const router = (await import(`../v2/routes/${file}`)).default(Router());
+  //     const router = (await import(`../../v2/routes/${file}`)).default(Router());
   //     app.use(`/api/v2/${file}`, router);
   //   }
   // });
 
   /**
+   * Csrf error handler, handles all generic errors
+   */
+  app.use((err: any, _req: Request, res: Response, next: NextFunction) => {
+    logger.error(err.message);
+    logger.error(_req.cookies);
+    return err.code === 'EBADCSRFTOKEN'
+      ? res.status(403).json(
+          makeMsgBody(
+            { i18nCode: 'E-1010', defaultValue: apiMessages['E-1010'] },
+            {
+              error: new CustomError({
+                statusCode: 403,
+                name: ApiErrorsName.InvalidToken,
+                type: ApiErrorsType.AuthorizationError,
+                message: apiMessages['E-1010'],
+                i18nCode: 'E-1010',
+                stack: err.stack ?? '',
+                details: err,
+              }),
+            }
+          )
+        )
+      : next(err);
+  });
+
+  /**
    * Global error handler, handles all generic errors
    */
-  // eslint-disable-next-line no-undef
-  app.use((err: NodeJS.ErrnoException, _req: Request, res: Response, _next: NextFunction) => {
+  app.use((err: Error, _req: Request, res: Response, _next: NextFunction) => {
     logger.error(err.message);
     return res.status(500).json(
       makeMsgBody(
