@@ -8,6 +8,6 @@ export const makeUser = (data: IUserInput, id?: string) => ({
   [Common.Id]: id ?? uuid(),
   ...data,
   [Common.IsDeleted]: false,
-  [TimeStamps.CreatedAt]: new Date().toISOString(),
-  [TimeStamps.UpdatedAt]: new Date().toISOString(),
+  [TimeStamps.CreatedAt]: new Date(),
+  [TimeStamps.UpdatedAt]: new Date(),
 });

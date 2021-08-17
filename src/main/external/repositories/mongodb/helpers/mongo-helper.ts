@@ -6,12 +6,13 @@ const client = mongoose;
 
 export const MongoHelper = {
   async connect(): Promise<void> {
-    await client.connect(process.env.MONGO_URL!, {
-      useCreateIndex: true,
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-      useFindAndModify: false,
-    });
+    if (process.env.MONGO_URL)
+      await client.connect(process.env.MONGO_URL!, {
+        useCreateIndex: true,
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+        useFindAndModify: false,
+      });
   },
   async disconnect(): Promise<void> {
     await client?.disconnect();

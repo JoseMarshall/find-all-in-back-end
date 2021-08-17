@@ -1,7 +1,7 @@
 import joi from 'joi';
 
 import { TimeStamps, User, UserRoles } from '../../../../../constants';
-import { dateRangeRegex } from '../../../../utils/regex';
+import { dateRangeRegex } from '../../../../../utils/regex';
 import joiValidator from '../../../index';
 import { GetAllUsers } from '../../../types/user';
 import { getAllSchema } from '../sub-schemas';

@@ -22,7 +22,7 @@ export function makeGetOneEntity<D extends Document, K>({
             ...(options.projection ?? {}),
           }
         )
-        ?.populate(options.populateOptions ?? { path: '' })
+        ?.populate(options.populateOptions)
         .exec()
     );
 

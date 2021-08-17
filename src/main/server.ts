@@ -1,9 +1,10 @@
 import { config } from 'dotenv';
 import path from 'path';
 
-import { CollectionNames } from '../constants';
+import { CollectionNames, Common } from '../constants';
 import { logger } from '../olyn/logger';
-import defaultUser from './config/default-user';
+import { makeUser } from '../v1/entities/user';
+import defaultUserGen from './config/default-user';
 import { MongoHelper } from './external/repositories/mongodb/helpers/mongo-helper';
 
 const start = async () => {
@@ -18,15 +19,14 @@ const start = async () => {
     await MongoHelper.connect();
 
     // Create default admin user IF NOT EXISTS
-    const createdDefaultUser = await MongoHelper.getCollection(CollectionNames.Users).updateOne(
-      defaultUser,
-      defaultUser,
+    const defaultUser = await defaultUserGen();
+    await MongoHelper.getCollection(CollectionNames.Users).updateOne(
+      { [Common.Id]: defaultUser.id },
+      { $set: makeUser(defaultUser, defaultUser.id) },
       {
         upsert: true,
       }
     );
-
-    logger.info(createdDefaultUser);
 
     const { default: App } = await import('./config/app');
 

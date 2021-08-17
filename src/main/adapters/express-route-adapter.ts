@@ -1,6 +1,6 @@
-import { NextFunction, Request, Response } from 'express';
+import { Request, Response } from 'express';
 
-import { ApiErrorsName, ApiErrorsType } from '../../constants/errors';
+import { ApiErrorsI18nCode, ApiErrorsName, ApiErrorsType } from '../../constants/errors';
 import apiMessages from '../../locales/pt/api-server.json';
 import CustomError from '../../olyn/custom-error';
 import { Controller, MessageBody } from './adapters.types';
@@ -8,10 +8,10 @@ import { Controller, MessageBody } from './adapters.types';
 export const makeMsgBody = (msg: MessageBody, payload: Record<string, any>) => ({ msg, payload });
 
 export const adaptExpressRoute =
-  (controller: Controller) => async (req: Request, res: Response, next: NextFunction) => {
+  (controller: Controller) => async (req: Request, res: Response) => {
     try {
       const data = await controller(req, res);
-      return next ? next() : res.status(data.status).json(makeMsgBody(data.msg, data.body));
+      return res.status(data.status).json(makeMsgBody(data.msg, data.body));
     } catch (error) {
       return error instanceof CustomError
         ? res
@@ -41,7 +41,7 @@ export function invalidRouteHandler() {
     status: 404,
     body: { method: req.method, url: req.url },
     msg: {
-      i18nCode: 'E-1005',
+      i18nCode: 'E-1005' as ApiErrorsI18nCode,
       defaultValue: apiMessages['E-1005'],
     },
   });

@@ -1,7 +1,7 @@
 import joi from 'joi';
 
 import { Common } from '../../../../../constants';
-import { limitQueryRegex, pageQueryRegex, sortByStringfiedRegex } from '../../../../utils';
+import { limitQueryRegex, pageQueryRegex, sortByStringfiedRegex } from '../../../../../utils';
 
 export const getAllSchema = {
   page: joi.string().required().regex(pageQueryRegex),
