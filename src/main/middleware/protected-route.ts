@@ -9,11 +9,11 @@ import { checkToken } from './checkToken';
 
 type ProtectedRouteRole =
   | {
-      allowedRoles: ReadonlyArray<UserRoles>;
+      allowedRoles: ReadonlyArray<`${UserRoles}`>;
       notAllowedRoles?: never;
     }
   | {
-      notAllowedRoles: ReadonlyArray<UserRoles>;
+      notAllowedRoles: ReadonlyArray<`${UserRoles}`>;
       allowedRoles?: never;
     };
 
