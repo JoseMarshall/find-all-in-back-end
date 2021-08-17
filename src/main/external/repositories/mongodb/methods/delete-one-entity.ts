@@ -25,7 +25,7 @@ export function makeDeleteOneEntity<D extends Document>({
               [TimeStamps.UpdatedAt]: 1,
             },
             new: true,
-            session: transaction.id ? transaction : undefined,
+            session: transaction?.id ? transaction : undefined,
           }
         )
         .lean()

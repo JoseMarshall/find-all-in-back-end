@@ -21,7 +21,7 @@ export function makeUpdateOneEntity<D extends Document, T>({
           {
             new: true,
             projection: { [Common.MongoId]: 0 },
-            session: transaction.id ? transaction : undefined,
+            session: transaction?.id ? transaction : undefined,
           }
         )
         ?.populate(populateOptions)

@@ -14,7 +14,7 @@ export function makeCreateEntity<D extends Document, K extends Entity>({
     const doc = (
       await queryGuard<D[]>(
         model.create([{ ...body, [Common.MongoId]: body[Common.Id] }], {
-          session: transaction.id ? transaction : undefined,
+          session: transaction?.id ? transaction : undefined,
         })
       )
     )[0];
