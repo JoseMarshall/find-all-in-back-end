@@ -85,9 +85,7 @@ export const protect =
               message: apiMessages['E-1002'],
               i18nCode: 'E-1002',
               stack: error.stack,
-              details: {
-                error,
-              },
+              details: error,
             }),
           }
         )

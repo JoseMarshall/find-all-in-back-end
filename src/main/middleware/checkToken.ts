@@ -41,8 +41,7 @@ export const checkToken = async (
       )
     );
   }
-  const decodedToken = jwt.verify(incomingToken, process.env.JWT_KEY) as Session;
-
+  const decodedToken = { user: jwt.verify(incomingToken, process.env.JWT_KEY) } as Session;
   const user = (await MongoHelper.getCollection(CollectionNames.Users).findOne({
     [Common.Id]: decodedToken.user.id,
     [User.Role]: decodedToken.user.role,

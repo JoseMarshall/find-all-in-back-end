@@ -2,15 +2,14 @@ import { Router } from 'express';
 
 import { UserRoles } from '../../../constants';
 import { adaptExpressRoute } from '../../../main/adapters/express-route-adapter';
-import { hashPassword, protect } from '../../../main/middleware';
-import makeCreateUserController from '../../factories/user/create-find-all-in-admin';
+import { protect } from '../../../main/middleware';
+import controller from '../../factories/citizen/get-one-citizen';
 
 export default (router: Router) => {
-  router.post(
-    '/',
+  router.get(
+    '/:id',
     protect({ allowedRoles: [UserRoles.FindAllInAdmin] }),
-    hashPassword,
-    adaptExpressRoute(makeCreateUserController)
+    adaptExpressRoute(controller)
   );
 
   return router;
