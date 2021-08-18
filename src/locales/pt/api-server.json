@@ -17,6 +17,7 @@
   "E-1018": "O método HTTP solicitado, não é permitido para esta rota",
   "E-1020": "Os dados não obedecem ao esquema definido. Você só pode ter um número máximo de 6 colunas ativas",
   "E-1021": "Falha ao gerar o token",
+  "E-1022": "Informação duplicada, por favor introduza outro(s) valor(es) para o(s) campo(s) listados",
   "S-3000": "Entidade criada com sucesso!",
   "S-3001": "Entidade eliminada com sucesso!",
   "S-3002": "Entidade encontrada com sucesso!",

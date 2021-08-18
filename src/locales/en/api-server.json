@@ -18,6 +18,7 @@
   "E-1018": "The requested HTTP method is not allowed",
   "E-1020": "The data does not obey the defined schema. You can only have a maximum number of 6 active columns",
   "E-1021": "Failed generating token",
+  "E-1022": "Duplicate information, please enter other value(s) for the field(s) listed",
   "S-3000": "Entity created successfully!",
   "S-3001": "Entity successfully deleted!",
   "S-3002": "Entity found successfully!",
