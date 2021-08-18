@@ -12,14 +12,6 @@ import { makeMsgBody } from '../adapters/express-route-adapter';
 import { checkToken } from '../middleware/checkToken';
 
 export default (app: Express): void => {
-  // if (process.env.NODE_ENV === 'development') {
-  //   app.all('*', [], (_req: Request, _res: Response, next: NextFunction) => {
-  //     console.log('req.cookies :>> ', _req.cookies);
-  //     // logger.info(`${req.hostname} ${req.method}: ${req.url}`);
-  //     next();
-  //   });
-  // }
-
   app.get('/api', (_req: Request, res: Response) =>
     res.status(200).json({
       msg: 'Welcome to Find All In - API',
@@ -65,20 +57,9 @@ export default (app: Express): void => {
   });
 
   /**
-   * In case of api v2
-   */
-  // readdirSync(path.resolve(__dirname, '../../v2/routes')).map(async file => {
-  //   if (!file.includes('__tests__')) {
-  //     const router = (await import(`../../v2/routes/${file}`)).default(Router());
-  //     app.use(`/api/v2/${file}`, router);
-  //   }
-  // });
-
-  /**
    * Csrf error handler, handles all generic errors
    */
   app.use((err: any, _req: Request, res: Response, next: NextFunction) => {
-    logger.error(err.message);
     logger.error(_req.cookies);
     return err.code === 'EBADCSRFTOKEN'
       ? res.status(403).json(
@@ -103,9 +84,8 @@ export default (app: Express): void => {
   /**
    * Global error handler, handles all generic errors
    */
-  app.use((err: Error, _req: Request, res: Response, _next: NextFunction) => {
-    logger.error(err.message);
-    return res.status(500).json(
+  app.use((err: Error, _req: Request, res: Response, _next: NextFunction) =>
+    res.status(500).json(
       makeMsgBody(
         { i18nCode: 'E-1002', defaultValue: apiMessages['E-1002'] },
         {
@@ -120,6 +100,6 @@ export default (app: Express): void => {
           }),
         }
       )
-    );
-  });
+    )
+  );
 };
