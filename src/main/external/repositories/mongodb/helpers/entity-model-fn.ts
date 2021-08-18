@@ -1,4 +1,5 @@
 import { Document } from 'mongoose';
+import { v4 as uuid } from 'uuid';
 
 import { Common, TotalCountCollection } from '../../../../../constants';
 import TotalCollectionModel from '../models/total-collections-document';
@@ -8,6 +9,8 @@ import TotalCollectionModel from '../models/total-collections-document';
  */
 // eslint-disable-next-line import/prefer-default-export
 export async function incTotalCount(this: Document) {
+  const id = uuid();
+  const dbSession = this.$session();
   await TotalCollectionModel.findOneAndUpdate(
     {
       [TotalCountCollection.CollectionName]: this.collection[TotalCountCollection.CollectionName],
@@ -17,6 +20,10 @@ export async function incTotalCount(this: Document) {
       $inc: {
         [TotalCountCollection.TotalCount]: 1,
       },
+      $setOnInsert: {
+        [Common.MongoId]: id,
+        [Common.Id]: id,
+      },
     },
     {
       upsert: true,
@@ -24,6 +31,7 @@ export async function incTotalCount(this: Document) {
       projection: {
         [TotalCountCollection.TotalCount]: 1,
       },
+      session: dbSession?.id ? dbSession : undefined,
     }
   );
 }
