@@ -8,3 +8,9 @@ export enum TimeStamps {
   CreatedAt = 'createdAt',
   UpdatedAt = 'updatedAt',
 }
+
+export enum MissingPosterStatus {
+  Missing = 'missing',
+  Found = 'found',
+  Seen = 'seen',
+}

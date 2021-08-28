@@ -1,6 +1,7 @@
 import { Common, TimeStamps } from '../../../constants';
 import { ICitizen } from '../../../v1/entities/citizen/citizen.types';
 import { Entity } from '../../../v1/entities/entity.types';
+import { IMissingPoster } from '../../../v1/entities/missing-poster/missing-poster.types';
 import { IUser } from '../../../v1/entities/user/user.types';
 import { GetAll, GetOne } from '../../../v1/validators/types/sub-types';
 
@@ -33,6 +34,7 @@ export interface IUnitOfWork {
   transaction: unknown;
   makeUserRepository: () => IRepository<IUser>;
   makeCitizenRepository: () => IRepository<ICitizen>;
+  makeMissingPosterRepository: () => IRepository<IMissingPoster>;
   commitChanges(): Promise<void>;
   rollback(): Promise<void>;
   startTransaction(): Promise<void>;

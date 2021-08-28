@@ -2,6 +2,7 @@ export enum User {
   Role = 'role',
   Name = 'name',
   Email = 'email',
+  CreatedBy = 'createdBy',
   Username = 'username',
   Password = 'password',
   ResetPassword = 'resetPassword',
@@ -20,6 +21,15 @@ export enum Citizen {
   UserAccount = 'userAccount',
 }
 
+export enum MissingPoster {
+  Name = 'name',
+  Status = 'status',
+  Photo = 'photo',
+  LastSeenDate = 'lastSeenDate',
+  LastSeenAt = 'lastSeenAt',
+  CreatedBy = 'createdBy',
+}
+
 export enum TotalCountCollection {
   CollectionName = 'collectionName',
   TotalCount = 'totalCount',
@@ -29,4 +39,5 @@ export enum CollectionNames {
   Users = 'users',
   TotalCountCollections = 'totalCountCollections',
   Citizens = 'citizens',
+  MissingPosters = 'missingPosters',
 }

@@ -1,24 +1,25 @@
-import { ApiErrorsName, ApiErrorsType, UserRoles } from '../../../constants';
+import { ApiErrorsName, ApiErrorsType } from '../../../constants';
 import apiMessages from '../../../locales/pt/api-server.json';
 import uow from '../../../main/external/repositories/mongodb/unit-of-work';
 import CustomError from '../../../olyn/custom-error';
-import { makeUser } from '../../entities/user';
-import { IUserInput } from '../../entities/user/user.types';
+import { makeMissingPoster } from '../../entities/missing-poster';
+import { IMissingPosterInput } from '../../entities/missing-poster/missing-poster.types';
 
 // eslint-disable-next-line import/prefer-default-export
-export function createFindAllInAdminUC() {
-  return async (data: IUserInput) => {
+export function createMissingPosterUC() {
+  return async (data: IMissingPosterInput) => {
     const unitOfWork = await uow();
     try {
       await unitOfWork.startTransaction();
-      const userRepo = unitOfWork.makeUserRepository();
 
-      const createdUser = await userRepo.add(makeUser({ ...data, role: UserRoles.FindAllInAdmin }));
+      const missingPosterRepo = unitOfWork.makeMissingPosterRepository();
+
+      const createdMissingPoster = await missingPosterRepo.add(makeMissingPoster(data));
 
       await unitOfWork.commitChanges();
 
       return {
-        payload: createdUser,
+        payload: createdMissingPoster,
       };
     } catch (error) {
       await unitOfWork.rollback();
