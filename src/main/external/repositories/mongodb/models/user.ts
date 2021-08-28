@@ -15,6 +15,7 @@ const userSchema = SchemaConstructor({
   },
   [User.Username]: { type: String, unique: true, required: true, trim: true },
   [User.Password]: { type: String, required: true, select: false },
+  [User.CreatedBy]: { type: String, required: false, ref: CollectionNames.Users },
   [User.Role]: {
     type: String,
     required: true,
