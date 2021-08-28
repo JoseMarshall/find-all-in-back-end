@@ -19,7 +19,7 @@ export function generateLookUp(
         const ALIAS = lookup.alias ?? lookup.foreignField;
         const PER_DOC_LIMIT = lookup.isForeignFieldArray ? `,{"$limit":${lookup.limit || 15}}` : '';
         const PROJECT_FIELDS = lookup.select
-          ? `,{"$project":${JSON.stringify({ _id: 0, ...lookup.select })}}`
+          ? `,{"$project":${JSON.stringify({ [Common.MongoId]: 0, ...lookup.select })}}`
           : `,{"$project":{"${Common.MongoId}":0}}`;
         const SORT_BY_FIELD = lookup.sort ? `,{"$sort":${JSON.stringify(lookup.sort)}}` : '';
 
@@ -47,7 +47,7 @@ export function generateLookUp(
           .replace(/FROM_TABLE/g, FROM_TABLE)
           .replace(/ALIAS/g, ALIAS);
 
-        return [JSON.parse(lookupTemplate)];
+        return JSON.parse(lookupTemplate);
       }
     );
   } catch (error) {
