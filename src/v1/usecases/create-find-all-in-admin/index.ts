@@ -10,14 +10,19 @@ export function createFindAllInAdminUC() {
   return async (data: IUserInput) => {
     const unitOfWork = await uow();
     try {
+      await unitOfWork.startTransaction();
       const userRepo = unitOfWork.makeUserRepository();
 
       const createdUser = await userRepo.add(makeUser({ ...data, role: UserRoles.FindAllInAdmin }));
+
+      await unitOfWork.commitChanges();
 
       return {
         payload: createdUser,
       };
     } catch (error) {
+      await unitOfWork.rollback();
+
       throw error instanceof CustomError
         ? error
         : new CustomError({
