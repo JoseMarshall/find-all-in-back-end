@@ -4,9 +4,9 @@ import { getDetailedCitizenUC } from '../../usecases/get-detailed-citizen';
 import { makeGetOneCitizenValidator } from '../../validators/schemas/http-requests/citizen';
 import { GetOne } from '../../validators/types/sub-types';
 
-const citizenSignup = makeGetOneEntityController<ICitizen, GetOne>({
+const getOneCitizen = makeGetOneEntityController<ICitizen, GetOne>({
   findOne: getDetailedCitizenUC(),
   requestValidator: makeGetOneCitizenValidator(),
 });
 
-export default citizenSignup;
+export default getOneCitizen;
