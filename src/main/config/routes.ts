@@ -1,6 +1,7 @@
 import { Express, NextFunction, Request, Response, Router } from 'express';
-import { readdirSync } from 'fs';
+import { readdir } from 'fs';
 import path from 'path';
+import { promisify } from 'util';
 
 import { ApiErrorsName, ApiErrorsType, ServerConstants } from '../../constants';
 import apiMessages from '../../locales/pt/api-server.json';
@@ -10,8 +11,9 @@ import { addDays } from '../../utils';
 import { ExpressRequestSession } from '../adapters/adapters.types';
 import { makeMsgBody } from '../adapters/express-route-adapter';
 import { checkToken } from '../middleware/checkToken';
+import handleInvalidRoute from './handle-invalid-route';
 
-export default (app: Express): void => {
+export default async (app: Express): Promise<void> => {
   app.get('/api', (_req: Request, res: Response) =>
     res.status(200).json({
       msg: 'Welcome to Find All In - API',
@@ -49,12 +51,20 @@ export default (app: Express): void => {
    * Load all routes from v1 routes folder
    */
 
-  readdirSync(path.resolve(__dirname, '../../v1/routes')).map(async file => {
-    if (!file.includes('__tests__')) {
-      const router = (await import(`../../v1/routes/${file}`)).default(Router());
-      app.use(`/api/v1/${file}`, router);
-    }
-  });
+  const readdirAsync = promisify(readdir);
+  const routes = await readdirAsync(path.resolve(__dirname, '../../v1/routes'));
+  await Promise.all(
+    routes.flatMap(route => [
+      (async r => {
+        if (!r.includes('__tests__')) {
+          const router = (await import(`../../v1/routes/${r}`)).default(Router());
+          app.use(`/api/v1/${r}`, router);
+        }
+      })(route),
+    ])
+  );
+
+  handleInvalidRoute(app);
 
   /**
    * Csrf error handler, handles all generic errors
