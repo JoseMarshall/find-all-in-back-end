@@ -22,6 +22,7 @@ export enum Citizen {
 }
 
 export enum MissingPoster {
+  Address = 'address',
   Name = 'name',
   Status = 'status',
   Photo = 'photo',
