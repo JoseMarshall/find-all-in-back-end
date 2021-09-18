@@ -1,9 +1,9 @@
 import { ApiErrorsName, ApiErrorsType, MissingPoster } from '../../../constants';
 import apiMessages from '../../../locales/pt/api-server.json';
-import { MakeGetAllEntitiesDependencies } from '../../../main/external/repositories/mongodb/mongoose.types';
+import { MakeGetGroupedEntityDependencies } from '../../../main/external/repositories/mongodb/mongoose.types';
 import uow from '../../../main/external/repositories/mongodb/unit-of-work';
 import CustomError from '../../../olyn/custom-error';
-import { IMissingPoster } from '../../entities/missing-poster/missing-poster.types';
+import { GroupedBy } from '../../entities/entity.types';
 
 // eslint-disable-next-line import/prefer-default-export
 export function getMissingPostersGroupedByStatusUC() {
@@ -12,13 +12,13 @@ export function getMissingPostersGroupedByStatusUC() {
     try {
       const missingPosterRepo = unitOfWork.makeMissingPosterRepository();
 
-      const missingPoster = await missingPosterRepo.getGroupedData<
-        MakeGetAllEntitiesDependencies<IMissingPoster>
+      const missingPosterGrouped = await missingPosterRepo.getGroupedData<
+        MakeGetGroupedEntityDependencies<GroupedBy<string>>
       >(
         {},
         {
           groupBy: {
-            id: { [MissingPoster.Status]: `$${MissingPoster.Status}` },
+            id: `$${MissingPoster.Status}`,
             total: {
               $sum: 1,
             },
@@ -27,7 +27,7 @@ export function getMissingPostersGroupedByStatusUC() {
       );
 
       return {
-        payload: missingPoster,
+        payload: missingPosterGrouped,
       };
     } catch (error) {
       throw error instanceof CustomError
