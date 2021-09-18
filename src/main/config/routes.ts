@@ -24,7 +24,7 @@ export default async (app: Express): Promise<void> => {
   /**
    * Return a new CSRF-TOKEN
    */
-  app.get('/api/csrf-token', (req: Request, res: Response) => {
+  app.get('/api/csrf', (req: Request, res: Response) => {
     res.cookie('csrf-token', req.csrfToken(), {
       httpOnly: true,
       sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'strict',
