@@ -10,11 +10,11 @@ export interface MakeGetAllEntitiesDependencies<K> {
 }
 
 export interface MakeGetGroupedEntityDependencies<K = any> {
-  projection?: Record<string, 0 | 1 | boolean | string>;
+  projection?: Record<string & 'name', 0 | 1 | boolean | string>;
   formatData?: (data: ReadonlyArray<any>) => ReadonlyArray<K>;
   formatQuery?: (query: Record<string, string> | {}) => Record<string, unknown>;
   lookup?: ReadonlyArray<Record<string, unknown>>;
-  groupBy: Record<string, unknown>;
+  groupBy: Record<string & Common.Id, unknown>;
 }
 
 export interface MakeGetOneEntityDependencies<K> {

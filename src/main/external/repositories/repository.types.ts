@@ -18,7 +18,7 @@ export interface DeletedEntity {
 }
 
 export interface GroupBy {
-  [Common.Id]: Record<string, string>;
+  [Common.Id]: Record<string, string> | string;
   total: Record<string, string | number>;
 }
 
@@ -31,7 +31,7 @@ export interface IRepository<T> {
   getGroupedData?: <O>(
     query: Record<string, any> & { sortBy?: string; includeDeleted?: string },
     options: O & Record<string, any> & Record<'groupBy', GroupBy>
-  ) => Promise<{ data: readonly unknown[] }>;
+  ) => Promise<{ data: readonly any[] }>;
   findOne<O>(filter: Record<string, any>, options?: O): Promise<T>;
 }
 
