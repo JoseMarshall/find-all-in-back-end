@@ -1,6 +1,6 @@
 import joi from 'joi';
 
-import { Common } from '../../../../../constants';
+import { Address, AngolaProvinces, Common } from '../../../../../constants';
 import { limitQueryRegex, pageQueryRegex, sortByStringfiedRegex } from '../../../../../utils';
 
 export const getAllSchema = {
@@ -11,4 +11,14 @@ export const getAllSchema = {
 
 export const idSchema = {
   [Common.Id]: joi.string().uuid({ version: 'uuidv4' }).required(),
+};
+
+export const addressSchema = {
+  [Address.Province]: joi
+    .string()
+    .valid(...Object.values(AngolaProvinces))
+    .required(),
+  [Address.County]: joi.string().required(),
+  [Address.Street]: joi.string().allow(''),
+  [Address.Number]: joi.string().allow(''),
 };
