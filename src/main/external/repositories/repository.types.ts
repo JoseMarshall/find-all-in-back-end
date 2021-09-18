@@ -17,6 +17,11 @@ export interface DeletedEntity {
   [TimeStamps.UpdatedAt]: string;
 }
 
+export interface GroupBy {
+  [Common.Id]: Record<string, string> | string;
+  total: Record<string, string | number>;
+}
+
 export interface IRepository<T> {
   add(entity: T): Promise<T>;
   update(query: GetOne, body: Omit<Record<string, any>, keyof Entity>): Promise<T>;
@@ -25,8 +30,8 @@ export interface IRepository<T> {
   getAll<O>(query: GetAll, options: O): Promise<GetAllEntitiesData<T>>;
   getGroupedData?: <O>(
     query: Record<string, any> & { sortBy?: string; includeDeleted?: string },
-    options: O & Record<string & 'groupBy', any>
-  ) => Promise<{ data: readonly unknown[] }>;
+    options: O & Record<string, any> & Record<'groupBy', GroupBy>
+  ) => Promise<{ data: readonly any[] }>;
   findOne<O>(filter: Record<string, any>, options?: O): Promise<T>;
 }
 

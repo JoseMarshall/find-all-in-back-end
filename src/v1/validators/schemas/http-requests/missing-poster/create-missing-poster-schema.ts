@@ -3,6 +3,7 @@ import joi from 'joi';
 import { MissingPoster } from '../../../../../constants';
 import { IMissingPosterInput } from '../../../../entities/missing-poster/missing-poster.types';
 import joiValidator from '../../../index';
+import { addressSchema } from '../sub-schemas';
 
 const createMissingPosterSchema = joi
   .object({
@@ -11,6 +12,7 @@ const createMissingPosterSchema = joi
     [MissingPoster.LastSeenDate]: joi.date().required(),
     [MissingPoster.Photo]: joi.string().uri(),
     [MissingPoster.CreatedBy]: joi.string().uuid(),
+    [MissingPoster.Address]: addressSchema,
   })
   .required()
   .unknown(false);

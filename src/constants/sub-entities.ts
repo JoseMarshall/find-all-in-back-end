@@ -14,3 +14,10 @@ export enum MissingPosterStatus {
   Found = 'found',
   Seen = 'seen',
 }
+
+export enum Address {
+  Province = 'province',
+  County = 'county',
+  Street = 'street',
+  Number = 'number',
+}

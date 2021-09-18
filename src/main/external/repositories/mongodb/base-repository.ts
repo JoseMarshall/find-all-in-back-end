@@ -40,7 +40,7 @@ function BaseRepository<D extends Document, T extends Entity>(
       query: Record<string, any> & { sortBy?: string; includeDeleted?: string },
       options: Record<string & 'groupBy', any>
     ) {
-      return makeGetGroupedEntity<D, unknown>({ model, options })(query);
+      return makeGetGroupedEntity<D, any>({ model, options })(query);
     },
   };
   return repository;

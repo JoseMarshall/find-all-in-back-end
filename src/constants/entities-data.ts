@@ -1,0 +1,21 @@
+// eslint-disable-next-line import/prefer-default-export
+export enum AngolaProvinces {
+  'Bengo' = 'Bengo',
+  'Benguela' = 'Benguela',
+  'Bie' = 'Bié',
+  'Cabinda' = 'Cabinda',
+  'Cuando-Cubango' = 'Cuando-Cubango',
+  'Cuanza-Norte' = 'Cuanza-Norte',
+  'Cuanza-Sul' = 'Cuanza-Sul',
+  'Cunene' = 'Cunene',
+  'Huambo' = 'Huambo',
+  'Huila' = 'Huíla',
+  'Luanda' = 'Luanda',
+  'Lunda-Norte' = 'Lunda-Norte',
+  'Lunda-Sul' = 'Lunda-Sul',
+  'Malanje' = 'Malanje',
+  'Moxico' = 'Moxico',
+  'Namibe' = 'Namibe',
+  'Uige' = 'Uíge',
+  'Zaire' = 'Zaire',
+}
