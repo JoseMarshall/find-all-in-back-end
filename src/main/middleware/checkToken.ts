@@ -22,7 +22,7 @@ export const checkToken = async (
   res: Response,
   next?: NextFunction
 ) => {
-  const incomingToken = req.cookies['find-all-in-session'];
+  const incomingToken = req.cookies[ServerConstants.CookieSession];
   if (!incomingToken) {
     return res.status(401).json(
       makeMsgBody(

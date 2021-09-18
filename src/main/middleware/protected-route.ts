@@ -24,26 +24,7 @@ export const protect =
     try {
       const session = (await checkToken(req, res)) as Session;
 
-      if (!session) {
-        return res.status(401).send(
-          makeMsgBody(
-            { i18nCode: 'E-1000', defaultValue: apiMessages['E-1000'] },
-            {
-              error: new CustomError({
-                statusCode: 401,
-                name: ApiErrorsName.ProtectedResource,
-                type: ApiErrorsType.AuthorizationError,
-                message: apiMessages['E-1000'],
-                i18nCode: 'E-1000',
-                stack: '',
-                details: {
-                  msg: 'This route is protected and you need to be signed in to access it',
-                },
-              }),
-            }
-          )
-        );
-      }
+      if (!session?.user) return null;
 
       const { role } = session.user;
 
