@@ -7,11 +7,16 @@ import { GetAllNotifications } from '../../../types/notification';
 import { getAllSchema } from '../sub-schemas';
 
 const getAllNotificationSchema = joi
-  .object(getAllSchema)
-  .append({
-    [TimeStamps.UpdatedAt]: joi.string().pattern(dateRangeRegex),
+  .object({
+    query: joi
+      .object(getAllSchema)
+      .append({
+        [TimeStamps.UpdatedAt]: joi.string().pattern(dateRangeRegex),
+      })
+      .required()
+      .unknown(false),
   })
   .required()
-  .unknown(false);
+  .unknown(true);
 
 export default joiValidator<GetAllNotifications>(getAllNotificationSchema);
