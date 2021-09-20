@@ -2,6 +2,7 @@ import { ClientSession } from 'mongoose';
 
 import { INotificationRepository } from '../../repository.types';
 import {
+  makeCreateNotification,
   makeGetAllNotifications,
   makeUpdateAllNotifications,
   makeUpdateManyNotifications,
@@ -10,6 +11,9 @@ import {
 
 function NotificationRepository(transaction: ClientSession) {
   const repository: INotificationRepository = {
+    async add(data) {
+      return makeCreateNotification(transaction)(data);
+    },
     async getAll(req, options) {
       return makeGetAllNotifications(options)(req);
     },

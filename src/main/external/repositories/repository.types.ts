@@ -44,6 +44,7 @@ export interface IRepository<T> {
 }
 
 export interface INotificationRepository {
+  add(notification: INotification): Promise<INotification>;
   updateOne(req: UpdateOneNotification): Promise<{ updated: boolean }>;
   updateMany(req: UpdateManyNotifications): Promise<{ updated: boolean }>;
   updateAll(req: UpdateAllNotifications): Promise<{ updated: boolean }>;

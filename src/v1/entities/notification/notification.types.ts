@@ -5,3 +5,5 @@ export interface INotification extends Entity {
   [Notification.Type]: `${NotificationTypes}`;
   [Notification.MissingPoster]: string;
 }
+
+export type INotificationInput = Omit<INotification, keyof Entity>;

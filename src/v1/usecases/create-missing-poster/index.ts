@@ -1,9 +1,10 @@
-import { ApiErrorsName, ApiErrorsType } from '../../../constants';
+import { ApiErrorsName, ApiErrorsType, NotificationTypes } from '../../../constants';
 import apiMessages from '../../../locales/pt/api-server.json';
 import uow from '../../../main/external/repositories/mongodb/unit-of-work';
 import CustomError from '../../../olyn/custom-error';
 import { makeMissingPoster } from '../../entities/missing-poster';
 import { IMissingPosterInput } from '../../entities/missing-poster/missing-poster.types';
+import { makeNotification } from '../../entities/notification';
 
 // eslint-disable-next-line import/prefer-default-export
 export function createMissingPosterUC() {
@@ -13,8 +14,13 @@ export function createMissingPosterUC() {
       await unitOfWork.startTransaction();
 
       const missingPosterRepo = unitOfWork.makeMissingPosterRepository();
+      const notificationRepo = unitOfWork.makeNotificationRepository();
 
       const createdMissingPoster = await missingPosterRepo.add(makeMissingPoster(data));
+
+      await notificationRepo.add(
+        makeNotification({ missingPoster: createdMissingPoster.id, type: NotificationTypes.Create })
+      );
 
       await unitOfWork.commitChanges();
 

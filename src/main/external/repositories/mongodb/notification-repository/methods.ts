@@ -14,6 +14,18 @@ import {
   UpdateOneNotification,
 } from './notification-repository.types';
 
+export function makeCreateNotification(transaction?: ClientSession) {
+  return async (notification: INotification) => {
+    const result = await queryGuard<NotificationDocument[]>(
+      NotificationModel.create([notification], {
+        session: transaction?.id ? transaction : undefined,
+      })
+    );
+
+    return result[0] as INotification;
+  };
+}
+
 export function makeGetAllNotifications(options: MakeGetAllEntitiesDependencies<INotification>) {
   return async ({ query, __session: userSession }: GetAllNotifications) => {
     const { page, limit, sortBy, ...filteredQuery } = query;
