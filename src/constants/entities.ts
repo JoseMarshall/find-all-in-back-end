@@ -21,6 +21,16 @@ export enum Citizen {
   UserAccount = 'userAccount',
 }
 
+export enum Notification {
+  MissingPoster = 'missingPoster',
+  Type = 'type',
+}
+
+export enum NotificationTypes {
+  Create = 'create',
+  Update = 'update',
+}
+
 export enum MissingPoster {
   Address = 'address',
   Name = 'name',
@@ -38,6 +48,7 @@ export enum TotalCountCollection {
 
 export enum CollectionNames {
   Users = 'users',
+  Notifications = 'notifications',
   TotalCountCollections = 'totalCountCollections',
   Citizens = 'citizens',
   MissingPosters = 'missingPosters',

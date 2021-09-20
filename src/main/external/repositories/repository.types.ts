@@ -38,6 +38,7 @@ export interface IRepository<T> {
 export interface IUnitOfWork {
   transaction: unknown;
   makeUserRepository: () => IRepository<IUser>;
+  makeNotificationRepository: () => IRepository<IUser>;
   makeCitizenRepository: () => IRepository<ICitizen>;
   makeMissingPosterRepository: () => IRepository<IMissingPoster>;
   commitChanges(): Promise<void>;

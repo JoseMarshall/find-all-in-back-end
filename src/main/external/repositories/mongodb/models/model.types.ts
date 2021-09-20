@@ -5,6 +5,8 @@ import {
   Common,
   MissingPoster,
   MissingPosterStatus,
+  Notification,
+  NotificationTypes,
   TotalCountCollection,
   User,
 } from '../../../../../constants';
@@ -26,6 +28,11 @@ export interface MissingPosterDocument extends Document, Omit<Entity, Common.Id>
   [MissingPoster.LastSeenAt]: string;
   [MissingPoster.Photo]: string;
   [MissingPoster.CreatedBy]: string;
+}
+
+export interface NotificationDocument extends Document, Omit<Entity, Common.Id> {
+  [Notification.Type]: `${NotificationTypes}`;
+  [Notification.MissingPoster]: string;
 }
 
 export interface TotalCollectionsDocument extends Document, Omit<Entity, Common.Id> {
