@@ -150,7 +150,7 @@ export function makeUpdateOneNotification(transaction?: ClientSession) {
 }
 
 export function makeUpdateManyNotifications(transaction?: ClientSession) {
-  return async ({ body, notificationId, userId }: UpdateManyNotifications) => {
+  return async ({ body, userId }: UpdateManyNotifications) => {
     const { notifications, ...filteredBody } = body;
     await Promise.all(
       notifications.flatMap((notification: string) => [
@@ -163,7 +163,7 @@ export function makeUpdateManyNotifications(transaction?: ClientSession) {
             isDeleted: false,
             ...filteredBody,
             [UsersNotification.UserId]: userId,
-            [UsersNotification.Notification]: notificationId,
+            notification,
           },
           {
             upsert: true,
