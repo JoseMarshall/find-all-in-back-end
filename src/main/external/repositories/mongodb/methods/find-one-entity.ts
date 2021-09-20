@@ -8,14 +8,19 @@ import { MakeGetOneEntityData } from '../mongoose.types';
 export function makeFindOneEntity<D extends Document, K>({
   model,
   options,
+  transaction,
 }: MakeGetOneEntityData<D, K>) {
   return async (query: Record<string, any>) => {
     const doc = await queryGuard<D>(
       model
-        .findOne(query, {
-          [Common.MongoId]: 0,
-          ...(options.projection ?? {}),
-        })
+        .findOne(
+          query,
+          {
+            [Common.MongoId]: 0,
+            ...(options.projection ?? {}),
+          },
+          { session: transaction?.id ? transaction : undefined }
+        )
         ?.populate(options.populateOptions)
         .exec()
     );

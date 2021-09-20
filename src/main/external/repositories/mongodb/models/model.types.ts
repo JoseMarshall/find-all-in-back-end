@@ -5,8 +5,11 @@ import {
   Common,
   MissingPoster,
   MissingPosterStatus,
+  Notification,
+  NotificationTypes,
   TotalCountCollection,
   User,
+  UsersNotification,
 } from '../../../../../constants';
 import { Entity } from '../../../../../v1/entities/entity.types';
 
@@ -26,8 +29,19 @@ export interface MissingPosterDocument extends Document, Omit<Entity, Common.Id>
   [MissingPoster.LastSeenAt]: string;
   [MissingPoster.Photo]: string;
   [MissingPoster.CreatedBy]: string;
+  [MissingPoster.UpdatedBy]: string;
 }
 
+export interface NotificationDocument extends Document, Omit<Entity, Common.Id> {
+  [Notification.Type]: `${NotificationTypes}`;
+  [Notification.MissingPoster]: string;
+}
+
+export interface UserNotificationDocument extends Document, Omit<Entity, Common.Id> {
+  [UsersNotification.UserId]: string;
+  [UsersNotification.Notification]: string;
+  [UsersNotification.IsRead]: boolean;
+}
 export interface TotalCollectionsDocument extends Document, Omit<Entity, Common.Id> {
   [TotalCountCollection.CollectionName]: string;
   [TotalCountCollection.TotalCount]: number;

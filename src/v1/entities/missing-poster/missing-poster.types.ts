@@ -5,6 +5,7 @@ export interface IMissingPoster extends Entity {
   [MissingPoster.Name]: string;
   [MissingPoster.Address]: IAddress;
   [MissingPoster.CreatedBy]: string;
+  [MissingPoster.UpdatedBy]: string;
   [MissingPoster.LastSeenAt]: string;
   [MissingPoster.LastSeenDate]: string;
   [MissingPoster.Photo]: string;
@@ -18,5 +19,6 @@ export type IMissingPosterInput = Pick<
   | MissingPoster.LastSeenDate
   | MissingPoster.Photo
   | MissingPoster.CreatedBy
+  | MissingPoster.UpdatedBy
   | MissingPoster.Address
 >;

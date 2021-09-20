@@ -1,6 +1,7 @@
 import { IUnitOfWork } from '../repository.types';
 import BaseRepository from './base-repository';
 import { MongoHelper } from './helpers/mongo-helper';
+import { NotificationRepository } from './index';
 import { CitizenModel, MissingPosterModel, UserModel } from './models';
 
 async function UnitOfWork() {
@@ -14,6 +15,9 @@ async function UnitOfWork() {
     },
     makeMissingPosterRepository() {
       return BaseRepository(MissingPosterModel, this.transaction);
+    },
+    makeNotificationRepository() {
+      return NotificationRepository(this.transaction);
     },
     async commitChanges() {
       await this.transaction.commitTransaction();

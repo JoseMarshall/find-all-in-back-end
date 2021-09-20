@@ -8,6 +8,7 @@ import { MakeGetOneEntityData } from '../mongoose.types';
 export function makeGetOneEntity<D extends Document, K>({
   model,
   options,
+  transaction,
 }: MakeGetOneEntityData<D, K>) {
   return async (query: { id: string; includeDeleted?: string }) => {
     const { id, includeDeleted, ...q } = query;
@@ -20,6 +21,9 @@ export function makeGetOneEntity<D extends Document, K>({
           {
             [Common.MongoId]: 0,
             ...(options.projection ?? {}),
+          },
+          {
+            session: transaction?.id ? transaction : undefined,
           }
         )
         ?.populate(options.populateOptions)
