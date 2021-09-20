@@ -28,6 +28,7 @@ export interface MissingPosterDocument extends Document, Omit<Entity, Common.Id>
   [MissingPoster.LastSeenAt]: string;
   [MissingPoster.Photo]: string;
   [MissingPoster.CreatedBy]: string;
+  [MissingPoster.UpdatedBy]: string;
 }
 
 export interface NotificationDocument extends Document, Omit<Entity, Common.Id> {

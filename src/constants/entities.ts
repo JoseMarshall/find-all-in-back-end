@@ -39,6 +39,7 @@ export enum MissingPoster {
   LastSeenDate = 'lastSeenDate',
   LastSeenAt = 'lastSeenAt',
   CreatedBy = 'createdBy',
+  UpdatedBy = 'updatedBy',
 }
 
 export enum TotalCountCollection {
