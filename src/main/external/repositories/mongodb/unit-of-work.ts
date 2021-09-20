@@ -1,7 +1,8 @@
 import { IUnitOfWork } from '../repository.types';
 import BaseRepository from './base-repository';
 import { MongoHelper } from './helpers/mongo-helper';
-import { CitizenModel, MissingPosterModel, NotificationModel, UserModel } from './models';
+import { NotificationRepository } from './index';
+import { CitizenModel, MissingPosterModel, UserModel } from './models';
 
 async function UnitOfWork() {
   const uow: IUnitOfWork = {
@@ -16,7 +17,7 @@ async function UnitOfWork() {
       return BaseRepository(MissingPosterModel, this.transaction);
     },
     makeNotificationRepository() {
-      return BaseRepository(NotificationModel, this.transaction);
+      return NotificationRepository(this.transaction);
     },
     async commitChanges() {
       await this.transaction.commitTransaction();

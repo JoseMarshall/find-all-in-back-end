@@ -2,8 +2,16 @@ import { Common, TimeStamps } from '../../../constants';
 import { ICitizen } from '../../../v1/entities/citizen/citizen.types';
 import { Entity } from '../../../v1/entities/entity.types';
 import { IMissingPoster } from '../../../v1/entities/missing-poster/missing-poster.types';
+import { INotification } from '../../../v1/entities/notification/notification.types';
 import { IUser } from '../../../v1/entities/user/user.types';
+import { GetAllNotifications } from '../../../v1/validators/types/notification';
 import { GetAll, GetOne } from '../../../v1/validators/types/sub-types';
+import { MakeGetAllEntitiesDependencies } from './mongodb/mongoose.types';
+import {
+  UpdateAllNotifications,
+  UpdateManyNotifications,
+  UpdateOneNotification,
+} from './mongodb/notification-repository/notification-repository.types';
 
 export interface GetAllEntitiesData<T> {
   data: ReadonlyArray<T>;
@@ -35,10 +43,20 @@ export interface IRepository<T> {
   findOne<O>(filter: Record<string, any>, options?: O): Promise<T>;
 }
 
+export interface INotificationRepository {
+  updateOne(req: UpdateOneNotification): Promise<{ updated: boolean }>;
+  updateMany(req: UpdateManyNotifications): Promise<{ updated: boolean }>;
+  updateAll(req: UpdateAllNotifications): Promise<{ updated: boolean }>;
+  getAll(
+    req: GetAllNotifications,
+    options: MakeGetAllEntitiesDependencies<INotification>
+  ): Promise<GetAllEntitiesData<INotification>>;
+}
+
 export interface IUnitOfWork {
   transaction: unknown;
   makeUserRepository: () => IRepository<IUser>;
-  makeNotificationRepository: () => IRepository<IUser>;
+  makeNotificationRepository: () => INotificationRepository;
   makeCitizenRepository: () => IRepository<ICitizen>;
   makeMissingPosterRepository: () => IRepository<IMissingPoster>;
   commitChanges(): Promise<void>;
