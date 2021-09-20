@@ -16,7 +16,6 @@ export interface UpdateOneNotification {
 
 export interface UpdateManyNotifications {
   userId: string;
-  notificationId: string;
   body: NotificationUpdatingFields & { notifications: readonly string[] };
 }
 
