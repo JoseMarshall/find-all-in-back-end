@@ -28,10 +28,15 @@ const start = async () => {
       }
     );
 
-    const { default: App } = await import('./config/app');
+    const { default: app, io } = await import('./config/app');
 
     const port = process.env.PORT ?? 3333;
-    App.listen(port, () =>
+
+    io.on('connect', socket => {
+      logger.info(`New Connection::>> ${socket.id}`);
+    });
+
+    app.listen(port, () =>
       logger.info(`Server running at ${process.env.URL_ROOT ?? 'http://localhost'}:${port}`)
     );
   } catch (error) {
