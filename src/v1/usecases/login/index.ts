@@ -55,7 +55,7 @@ export function loginUC() {
       const userRepo = unitOfWork.makeUserRepository();
 
       const { password, ...restOfData } = data;
-      console.log('data :>> ', data);
+
       const user = await userRepo.findOne<MakeGetOneEntityDependencies<IUser>>(restOfData, {
         projection: { [User.Name]: 1, [User.Role]: 1, [User.Password]: 1, [Common.Id]: 1 },
       });
