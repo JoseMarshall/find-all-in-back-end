@@ -1,5 +1,7 @@
 import cors from 'cors';
 
+import { logger } from '../../olyn/logger';
+
 const whitelist = [
   process.env.URL_ROOT,
   process.env.URL_DEV,
@@ -11,6 +13,7 @@ const corsOptions = {
     if (whitelist.indexOf(origin) !== -1 || !origin) {
       callback(null, true);
     } else {
+      logger.error(`${origin} Not allowed by CORS`);
       callback(new Error(`${origin} Not allowed by CORS`));
     }
   },
