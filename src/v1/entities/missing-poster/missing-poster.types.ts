@@ -9,6 +9,8 @@ export interface IMissingPoster extends Entity {
   [MissingPoster.LastSeenAt]: string;
   [MissingPoster.LastSeenDate]: string;
   [MissingPoster.Photo]: string;
+  [MissingPoster.Feedback]?: string;
+  [MissingPoster.DisappearanceParticipation]?: string;
   [MissingPoster.Status]: `${MissingPosterStatus}`;
 }
 
@@ -18,6 +20,8 @@ export type IMissingPosterInput = Pick<
   | MissingPoster.LastSeenAt
   | MissingPoster.LastSeenDate
   | MissingPoster.Photo
+  | MissingPoster.DisappearanceParticipation
+  | MissingPoster.Feedback
   | MissingPoster.CreatedBy
   | MissingPoster.UpdatedBy
   | MissingPoster.Address

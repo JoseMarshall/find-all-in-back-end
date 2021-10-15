@@ -10,8 +10,10 @@ const createMissingPosterSchema = joi
     [MissingPoster.Name]: joi.string().required(),
     [MissingPoster.LastSeenAt]: joi.string().required(),
     [MissingPoster.LastSeenDate]: joi.date().required(),
-    [MissingPoster.Photo]: joi.string().uri(),
-    [MissingPoster.CreatedBy]: joi.string().uuid(),
+    [MissingPoster.Photo]: joi.string().uri().required(),
+    [MissingPoster.Feedback]: joi.string().allow(''),
+    [MissingPoster.DisappearanceParticipation]: joi.string().uri(),
+    [MissingPoster.CreatedBy]: joi.string().uuid().required(),
     [MissingPoster.Address]: addressSchema,
   })
   .required()

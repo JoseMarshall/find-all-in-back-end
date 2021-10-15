@@ -42,6 +42,8 @@ export enum MissingPoster {
   Name = 'name',
   Status = 'status',
   Photo = 'photo',
+  DisappearanceParticipation = 'disappearanceParticipation',
+  Feedback = 'feedback',
   LastSeenDate = 'lastSeenDate',
   LastSeenAt = 'lastSeenAt',
   CreatedBy = 'createdBy',
