@@ -7,11 +7,10 @@ import apiMessages from '../../../locales/pt/api-server.json';
 import { MakeGetOneEntityDependencies } from '../../../main/external/repositories/mongodb/mongoose.types';
 import uow from '../../../main/external/repositories/mongodb/unit-of-work';
 import CustomError from '../../../olyn/custom-error';
-import { addDays } from '../../../utils';
 import { IUser } from '../../entities/user/user.types';
 import { ILogin } from '../../validators/types/login';
 
-async function generateToken(user: IUser, res: Record<string, any>) {
+async function generateToken(user: IUser) {
   const asyncSign = promisify<
     string | Buffer | Record<string, unknown>,
     Secret,
@@ -39,17 +38,15 @@ async function generateToken(user: IUser, res: Record<string, any>) {
       stack: new Error().stack,
       details: { msg: 'Failed signing the cookie session' },
     });
-  res.cookie(ServerConstants.CookieSession, token, {
-    httpOnly: true,
-    sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'strict',
-    expires: addDays(new Date(), 365), // Expires in 1y
-    secure: process.env.NODE_ENV === 'production',
-  }); // Set a cookie with the generated token expires in 1 hour
+  return {
+    name: ServerConstants.CookieSession,
+    value: token,
+  };
 }
 
 // eslint-disable-next-line import/prefer-default-export
 export function loginUC() {
-  return async (data: ILogin, res: Record<string, any>) => {
+  return async (data: ILogin) => {
     const unitOfWork = await uow();
     try {
       const userRepo = unitOfWork.makeUserRepository();
@@ -63,7 +60,7 @@ export function loginUC() {
       const samePassword = await bcrypt.compare(password, user.password);
 
       if (samePassword) {
-        await generateToken(user, res);
+        const token = await generateToken(user);
         return {
           payload: {
             user: {
@@ -71,6 +68,7 @@ export function loginUC() {
               [User.Name]: user.name,
               [User.Role]: user.role,
             },
+            token,
           },
         };
       }

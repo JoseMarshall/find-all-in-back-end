@@ -4,9 +4,9 @@ import { HttpRequest } from '../../../../main/adapters/adapters.types';
 import { MakeLoginDependency } from '../auth.types';
 
 function makeLoginController({ login, requestValidator }: MakeLoginDependency) {
-  return async (req: HttpRequest, res: Record<string, any>) => {
+  return async (req: HttpRequest, _res: Record<string, any>) => {
     const validatedBody = await requestValidator(req);
-    const result = await login(validatedBody, res);
+    const result = await login(validatedBody);
 
     return {
       status: 200,
