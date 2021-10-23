@@ -7,7 +7,7 @@ import { ApiErrorsName, ApiErrorsType, ServerConstants } from '../../constants';
 import apiMessages from '../../locales/pt/api-server.json';
 import CustomError from '../../olyn/custom-error';
 import { logger } from '../../olyn/logger';
-import { addDays } from '../../utils';
+// import { addDays } from '../../utils';
 import { ExpressRequestSession } from '../adapters/adapters.types';
 import { makeMsgBody } from '../adapters/express-route-adapter';
 import { checkToken } from '../middleware/checkToken';
@@ -21,18 +21,18 @@ export default async (app: Express): Promise<void> => {
     })
   );
 
-  /**
-   * Return a new CSRF-TOKEN
-   */
-  app.get('/api/csrf', (req: Request, res: Response) => {
-    res.cookie('csrf-token', req.csrfToken(), {
-      httpOnly: true,
-      sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'strict',
-      expires: addDays(new Date(), 365), // Expires in 1y
-      secure: process.env.NODE_ENV === 'production',
-    });
-    res.status(200).json({ csrfToken: true });
-  });
+  // /**
+  //  * Return a new CSRF-TOKEN
+  //  */
+  // app.get('/api/csrf', (req: Request, res: Response) => {
+  //   res.cookie('csrf-token', req.csrfToken(), {
+  //     httpOnly: true,
+  //     sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'strict',
+  //     expires: addDays(new Date(), 365), // Expires in 1y
+  //     secure: process.env.NODE_ENV === 'production',
+  //   });
+  //   res.status(200).json({ csrfToken: true });
+  // });
 
   app.get('/api/auth-with-cookie', checkToken, (req: ExpressRequestSession, res: Response) => {
     res.status(200).json(
