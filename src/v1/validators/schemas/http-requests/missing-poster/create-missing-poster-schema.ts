@@ -1,6 +1,6 @@
 import joi from 'joi';
 
-import { MissingPoster } from '../../../../../constants';
+import { MissingPoster, MissingPosterStatus } from '../../../../../constants';
 import { IMissingPosterInput } from '../../../../entities/missing-poster/missing-poster.types';
 import joiValidator from '../../../index';
 import { addressSchema } from '../sub-schemas';
@@ -15,6 +15,10 @@ const createMissingPosterSchema = joi
     [MissingPoster.DisappearanceParticipation]: joi.string().uri(),
     [MissingPoster.CreatedBy]: joi.string().uuid().required(),
     [MissingPoster.Address]: addressSchema,
+    [MissingPoster.Status]: joi
+      .string()
+      .valid(...Object.values(MissingPosterStatus))
+      .required(),
   })
   .required()
   .unknown(false);
