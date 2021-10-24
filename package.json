@@ -17,7 +17,7 @@
     "url": "https://github.com/JoseMarshall/find-all-in-back-end.git"
   },
   "engines": {
-    "node": ">=14"
+    "node": "14"
   },
   "author": "JoseMarshall",
   "license": "ISC",
