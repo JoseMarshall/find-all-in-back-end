@@ -25,4 +25,5 @@ export type IMissingPosterInput = Pick<
   | MissingPoster.CreatedBy
   | MissingPoster.UpdatedBy
   | MissingPoster.Address
+  | MissingPoster.Status
 >;
