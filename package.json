@@ -16,7 +16,10 @@
     "type": "git",
     "url": "https://github.com/JoseMarshall/find-all-in-back-end.git"
   },
-  "author": "",
+  "engines": {
+    "node": ">=14"
+  },
+  "author": "JoseMarshall",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/JoseMarshall/find-all-in-back-end/issues"
