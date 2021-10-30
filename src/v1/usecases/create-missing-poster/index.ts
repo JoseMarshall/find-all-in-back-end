@@ -1,5 +1,12 @@
-import { ApiErrorsName, ApiErrorsType, NotificationTypes } from '../../../constants';
+import {
+  ApiErrorsName,
+  ApiErrorsType,
+  CollectionNames,
+  Notification,
+  NotificationTypes,
+} from '../../../constants';
 import apiMessages from '../../../locales/pt/api-server.json';
+import { io } from '../../../main/config/app';
 import uow from '../../../main/external/repositories/mongodb/unit-of-work';
 import CustomError from '../../../olyn/custom-error';
 import { makeMissingPoster } from '../../entities/missing-poster';
@@ -18,9 +25,17 @@ export function createMissingPosterUC() {
 
       const createdMissingPoster = await missingPosterRepo.add(makeMissingPoster(data));
 
-      await notificationRepo.add(
+      const notification = await notificationRepo.add(
         makeNotification({ missingPoster: createdMissingPoster.id, type: NotificationTypes.Create })
       );
+
+      // Emit the created missing-poster event through websocket
+      io.emit(`${CollectionNames.MissingPosters}-${NotificationTypes.Create}`, {
+        ...notification,
+        [Notification.MissingPoster]: createdMissingPoster,
+        [Notification.Type]: NotificationTypes.Create,
+        isRead: false,
+      });
 
       await unitOfWork.commitChanges();
 

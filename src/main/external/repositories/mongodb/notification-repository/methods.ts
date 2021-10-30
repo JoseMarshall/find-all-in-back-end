@@ -60,7 +60,7 @@ export function makeGetAllNotifications(options: MakeGetAllEntitiesDependencies<
       NotificationModel.aggregate([
         {
           $facet: {
-            entitiesPage: [
+            data: [
               {
                 $addFields: {
                   userNotification: '$id',
@@ -99,7 +99,7 @@ export function makeGetAllNotifications(options: MakeGetAllEntitiesDependencies<
                 },
               },
             ],
-            totalCount: [
+            count: [
               {
                 $addFields: {
                   userNotification: '$id',
