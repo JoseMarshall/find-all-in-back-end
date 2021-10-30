@@ -17,7 +17,7 @@ import {
 export function makeCreateNotification(transaction?: ClientSession) {
   return async (notification: INotification) => {
     const result = await queryGuard<NotificationDocument[]>(
-      NotificationModel.create([notification], {
+      NotificationModel.create([{ ...notification, [Common.MongoId]: notification[Common.Id] }], {
         session: transaction?.id ? transaction : undefined,
       })
     );
