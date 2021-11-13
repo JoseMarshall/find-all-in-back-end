@@ -23,7 +23,7 @@ const missingPosterSchema = SchemaConstructor({
   [MissingPoster.Address]: addressSchema,
   [MissingPoster.CreatedBy]: { type: String, required: true, ref: CollectionNames.Users },
   [MissingPoster.UpdatedBy]: { type: String, required: true, ref: CollectionNames.Users },
-  [MissingPoster.PreviousStatus]: { type: String, required: true, trim: true, default: '' },
+  [MissingPoster.PreviousStatus]: { type: String, required: false, trim: true, default: '' },
   [MissingPoster.Status]: {
     type: String,
     required: true,
