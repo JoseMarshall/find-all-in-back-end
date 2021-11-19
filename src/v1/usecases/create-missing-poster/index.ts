@@ -20,6 +20,7 @@ export function createMissingPosterUC() {
     try {
       await unitOfWork.startTransaction();
 
+      // console.log('data :>> ', data);
       const missingPosterRepo = unitOfWork.makeMissingPosterRepository();
       const notificationRepo = unitOfWork.makeNotificationRepository();
 
@@ -30,12 +31,18 @@ export function createMissingPosterUC() {
       );
 
       // Emit the created missing-poster event through websocket
-      io.emit(`${CollectionNames.MissingPosters}-${NotificationTypes.Create}`, {
-        ...notification,
-        [Notification.MissingPoster]: createdMissingPoster,
-        [Notification.Type]: NotificationTypes.Create,
-        isRead: false,
-      });
+      io.emit(
+        `${CollectionNames.MissingPosters}-${NotificationTypes.Create}`,
+        JSON.stringify({
+          id: notification.id,
+          createdAt: notification.createdAt,
+          isDeleted: notification.isDeleted,
+          updatedAt: notification.updatedAt,
+          [Notification.MissingPoster]: createdMissingPoster,
+          [Notification.Type]: NotificationTypes.Create,
+          isRead: false,
+        })
+      );
 
       await unitOfWork.commitChanges();
 
