@@ -25,7 +25,7 @@ async function generateToken(user: IUser) {
       [Common.Id]: user.id,
     },
     process.env.JWT_KEY,
-    { expiresIn: process.env.JWT_EXPIRATION_TIME ?? '8h' }
+    { expiresIn: process.env.JWT_EXPIRATION_TIME ?? '72h' }
   );
 
   if (!token)

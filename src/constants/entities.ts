@@ -37,6 +37,12 @@ export enum NotificationTypes {
   Update = 'update',
 }
 
+export enum Comment {
+  MissingPoster = 'missingPoster',
+  Text = 'text',
+  PostedBy = 'postedBy',
+}
+
 export enum MissingPoster {
   Address = 'address',
   Name = 'name',
@@ -45,6 +51,8 @@ export enum MissingPoster {
   Photo = 'photo',
   DisappearanceParticipation = 'disappearanceParticipation',
   Feedback = 'feedback',
+  Likes = 'likes',
+  Dislikes = 'dislikes',
   LastSeenDate = 'lastSeenDate',
   LastSeenAt = 'lastSeenAt',
   CreatedBy = 'createdBy',
@@ -61,6 +69,7 @@ export enum CollectionNames {
   Notifications = 'notifications',
   TotalCountCollections = 'totalCountCollections',
   Citizens = 'citizens',
+  Comments = 'comments',
   MissingPosters = 'missingPosters',
   UsersNotifications = 'usersNotifications',
 }

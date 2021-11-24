@@ -8,6 +8,7 @@ import getAllMissingPostersController from '../../factories/missing-poster/get-a
 import getOneMissingPosterGroupedByCountyController from '../../factories/missing-poster/get-missing-poster-grouped-by-county';
 import getOneMissingPosterGroupedByStatusController from '../../factories/missing-poster/get-missing-poster-grouped-by-status';
 import getOneMissingPosterController from '../../factories/missing-poster/get-one-missing-poster';
+import likeMissingPosterController from '../../factories/missing-poster/like-missing-poster';
 
 export default (router: Router) => {
   router.get(
@@ -32,6 +33,14 @@ export default (router: Router) => {
       allowedRoles: [UserRoles.FindAllInAdmin, UserRoles.InstitutionEmployee, UserRoles.Citizen],
     }),
     adaptExpressRoute(getOneMissingPosterController)
+  );
+
+  router.put(
+    '/:id/like-dislike',
+    protect({
+      notAllowedRoles: [],
+    }),
+    adaptExpressRoute(likeMissingPosterController)
   );
 
   router.get(
