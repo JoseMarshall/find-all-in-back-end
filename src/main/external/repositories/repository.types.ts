@@ -1,5 +1,6 @@
 import { Common, TimeStamps } from '../../../constants';
 import { ICitizen } from '../../../v1/entities/citizen/citizen.types';
+import { IComment } from '../../../v1/entities/comment/comment.types';
 import { Entity } from '../../../v1/entities/entity.types';
 import { IMissingPoster } from '../../../v1/entities/missing-poster/missing-poster.types';
 import { INotification } from '../../../v1/entities/notification/notification.types';
@@ -57,6 +58,7 @@ export interface INotificationRepository {
 export interface IUnitOfWork {
   transaction: unknown;
   makeUserRepository: () => IRepository<IUser>;
+  makeCommentRepository: () => IRepository<IComment>;
   makeNotificationRepository: () => INotificationRepository;
   makeCitizenRepository: () => IRepository<ICitizen>;
   makeMissingPosterRepository: () => IRepository<IMissingPoster>;

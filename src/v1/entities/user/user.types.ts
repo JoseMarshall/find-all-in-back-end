@@ -4,6 +4,7 @@ import { Entity } from '../entity.types';
 export interface IUser extends Entity {
   [User.Name]: string;
   [User.Email]: string;
+  [User.Photo]?: string;
   [User.Role]: `${UserRoles}`;
   [User.Username]: string;
   [User.Password]: string;

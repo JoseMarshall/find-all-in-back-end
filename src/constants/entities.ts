@@ -2,6 +2,7 @@ export enum User {
   Role = 'role',
   Name = 'name',
   Email = 'email',
+  Photo = 'photo',
   CreatedBy = 'createdBy',
   Username = 'username',
   Password = 'password',

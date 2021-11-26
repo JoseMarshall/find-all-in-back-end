@@ -17,6 +17,7 @@ import { Entity } from '../../../../../v1/entities/entity.types';
 export interface UserDocument extends Document, Omit<Entity, Common.Id> {
   [User.Name]: string;
   [User.Email]: string;
+  [User.Photo]?: string;
   [User.Password]: string;
   [User.Username]: string;
   [User.Role]: string;
