@@ -29,7 +29,13 @@ export function getAllMissingPostersUC() {
           foreignField: MissingPoster.CreatedBy,
           from: CollectionNames.Users,
           isForeignFieldArray: false,
-          select: { [Common.MongoId]: 0, [Common.Id]: 1, [User.Name]: 1, [User.Email]: 1 },
+          select: {
+            [Common.MongoId]: 0,
+            [Common.Id]: 1,
+            [User.Name]: 1,
+            [User.Email]: 1,
+            [User.Photo]: 1,
+          },
         }),
         formatQuery: formatQueryToRegex,
       });

@@ -22,6 +22,7 @@ async function generateToken(user: IUser) {
     {
       [User.Role]: user.role,
       [User.Name]: user.name,
+      [User.Photo]: user.photo,
       [Common.Id]: user.id,
     },
     process.env.JWT_KEY,
@@ -54,7 +55,13 @@ export function loginUC() {
       const { password, ...restOfData } = data;
 
       const user = await userRepo.findOne<MakeGetOneEntityDependencies<IUser>>(restOfData, {
-        projection: { [User.Name]: 1, [User.Role]: 1, [User.Password]: 1, [Common.Id]: 1 },
+        projection: {
+          [User.Name]: 1,
+          [User.Photo]: 1,
+          [User.Role]: 1,
+          [User.Password]: 1,
+          [Common.Id]: 1,
+        },
       });
 
       const samePassword = await bcrypt.compare(password, user.password);
@@ -66,6 +73,7 @@ export function loginUC() {
             user: {
               [Common.Id]: user.id,
               [User.Name]: user.name,
+              [User.Photo]: user.photo,
               [User.Role]: user.role,
             },
             token,
