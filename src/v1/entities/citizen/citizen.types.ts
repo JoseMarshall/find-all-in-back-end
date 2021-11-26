@@ -9,6 +9,7 @@ export interface ICitizen extends Entity {
 export interface ICitizenInput {
   [Citizen.Name]: string;
   [User.Email]: string;
+  [User.Photo]?: string;
   [User.Username]: string;
   [User.Password]: string;
 }

@@ -8,6 +8,7 @@ const signupCitizenSchema = joi
   .object({
     [Citizen.Name]: joi.string().required(),
     [User.Email]: joi.string().email().required(),
+    [User.Photo]: joi.string().uri().optional(),
     [User.Username]: joi.string().required(),
     [User.Password]: joi.string().required(),
   })
