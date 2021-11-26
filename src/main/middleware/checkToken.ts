@@ -22,9 +22,11 @@ export const checkToken = async (
   res: Response,
   next?: NextFunction
 ) => {
+  console.log('req.headers.authorization :>> ', req.headers.authorization);
   const incomingToken = JSON.parse(
     req.headers.authorization ?? `{"${[ServerConstants.CookieSession]}":""}`
   )[ServerConstants.CookieSession];
+
   if (!incomingToken) {
     return res.status(401).json(
       makeMsgBody(
