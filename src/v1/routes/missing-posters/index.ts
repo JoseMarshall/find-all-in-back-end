@@ -11,29 +11,11 @@ import getOneMissingPosterController from '../../factories/missing-poster/get-on
 import likeMissingPosterController from '../../factories/missing-poster/like-missing-poster';
 
 export default (router: Router) => {
-  router.get(
-    '/group-by-status',
-    protect({
-      allowedRoles: [UserRoles.FindAllInAdmin, UserRoles.InstitutionEmployee, UserRoles.Citizen],
-    }),
-    adaptExpressRoute(getOneMissingPosterGroupedByStatusController)
-  );
+  router.get('/group-by-status', adaptExpressRoute(getOneMissingPosterGroupedByStatusController));
 
-  router.get(
-    '/group-by-county',
-    protect({
-      allowedRoles: [UserRoles.FindAllInAdmin, UserRoles.InstitutionEmployee, UserRoles.Citizen],
-    }),
-    adaptExpressRoute(getOneMissingPosterGroupedByCountyController)
-  );
+  router.get('/group-by-county', adaptExpressRoute(getOneMissingPosterGroupedByCountyController));
 
-  router.get(
-    '/:id',
-    protect({
-      allowedRoles: [UserRoles.FindAllInAdmin, UserRoles.InstitutionEmployee, UserRoles.Citizen],
-    }),
-    adaptExpressRoute(getOneMissingPosterController)
-  );
+  router.get('/:id', adaptExpressRoute(getOneMissingPosterController));
 
   router.put(
     '/:id/like-dislike',
@@ -43,13 +25,7 @@ export default (router: Router) => {
     adaptExpressRoute(likeMissingPosterController)
   );
 
-  router.get(
-    '/',
-    protect({
-      allowedRoles: [UserRoles.FindAllInAdmin, UserRoles.InstitutionEmployee, UserRoles.Citizen],
-    }),
-    adaptExpressRoute(getAllMissingPostersController)
-  );
+  router.get('/', adaptExpressRoute(getAllMissingPostersController));
 
   router.post(
     '/',
