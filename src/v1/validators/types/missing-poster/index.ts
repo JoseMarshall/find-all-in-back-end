@@ -7,3 +7,11 @@ export interface GetAllMissingPosters extends GetAll {
   [MissingPoster.CreatedBy]?: string;
   [MissingPoster.Status]?: string;
 }
+
+export interface UpdateLikesPoster {
+  params: { id: string };
+  body: {
+    [MissingPoster.Likes]: number;
+    [MissingPoster.Dislikes]: number;
+  };
+}

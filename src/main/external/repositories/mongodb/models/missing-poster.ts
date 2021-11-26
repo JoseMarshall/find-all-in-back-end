@@ -24,6 +24,8 @@ const missingPosterSchema = SchemaConstructor({
   [MissingPoster.CreatedBy]: { type: String, required: true, ref: CollectionNames.Users },
   [MissingPoster.UpdatedBy]: { type: String, required: true, ref: CollectionNames.Users },
   [MissingPoster.PreviousStatus]: { type: String, required: false, trim: true, default: '' },
+  [MissingPoster.Likes]: { type: Number, required: true, default: 0 },
+  [MissingPoster.Dislikes]: { type: Number, required: true, default: 0 },
   [MissingPoster.Status]: {
     type: String,
     required: true,

@@ -31,7 +31,7 @@ export const protect =
       if (
         rolesSettings.allowedRoles
           ? !rolesSettings.allowedRoles.includes(role)
-          : !rolesSettings.notAllowedRoles.includes(role)
+          : rolesSettings.notAllowedRoles.includes(role)
       ) {
         return res.status(403).json(
           makeMsgBody(

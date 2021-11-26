@@ -5,6 +5,7 @@ import getAllMissingPostersSchemaValidator from './get-all-missing-posters-schem
 import getMissingPosterGroupedByCountySchemaValidator from './get-missing-poster-grouped-by-county-schema';
 import getMissingPosterGroupedByStatusSchemaValidator from './get-missing-poster-grouped-by-status-schema';
 import getOneMissingPosterSchemaValidator from './get-one-missing-poster-schema';
+import likeMissingPosterSchemaValidator from './like-missing-poster-schema';
 
 // eslint-disable-next-line import/prefer-default-export
 export const makeCreateMissingPosterValidator = () => async (req: ExpressRequestSession) =>
@@ -12,6 +13,9 @@ export const makeCreateMissingPosterValidator = () => async (req: ExpressRequest
     ...req.body,
     [MissingPoster.CreatedBy]: req[ServerConstants.Session].user.id,
   });
+
+export const makeLikeMissingPosterValidator = () => async (req: HttpRequest) =>
+  likeMissingPosterSchemaValidator(req);
 
 export const makeGetOneMissingPosterValidator = () => async (req: HttpRequest) =>
   getOneMissingPosterSchemaValidator(req.params);

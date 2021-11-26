@@ -2,6 +2,7 @@ import { Document } from 'mongoose';
 
 import {
   Citizen,
+  Comment,
   Common,
   MissingPoster,
   MissingPosterStatus,
@@ -16,6 +17,7 @@ import { Entity } from '../../../../../v1/entities/entity.types';
 export interface UserDocument extends Document, Omit<Entity, Common.Id> {
   [User.Name]: string;
   [User.Email]: string;
+  [User.Photo]?: string;
   [User.Password]: string;
   [User.Username]: string;
   [User.Role]: string;
@@ -50,4 +52,10 @@ export interface TotalCollectionsDocument extends Document, Omit<Entity, Common.
 export interface CitizenDocument extends Document, Omit<Entity, Common.Id> {
   [Citizen.Name]: string;
   [Citizen.UserAccount]: string;
+}
+
+export interface CommentDocument extends Document, Omit<Entity, Common.Id> {
+  [Comment.MissingPoster]: string;
+  [Comment.PostedBy]: string;
+  [Comment.Text]: string;
 }
