@@ -1,6 +1,5 @@
 import { Router } from 'express';
 
-import { UserRoles } from '../../../constants';
 import { adaptExpressRoute } from '../../../main/adapters/express-route-adapter';
 import { protect } from '../../../main/middleware';
 import getAllNotificationsController from '../../factories/notification/get-all-notifications';
@@ -12,11 +11,7 @@ export default (router: Router) => {
   router.get(
     '/',
     protect({
-      allowedRoles: [
-        UserRoles.FindAllInAdmin,
-        UserRoles.InstitutionAdmin,
-        UserRoles.InstitutionEmployee,
-      ],
+      notAllowedRoles: [],
     }),
     adaptExpressRoute(getAllNotificationsController)
   );
@@ -24,11 +19,7 @@ export default (router: Router) => {
   router.put(
     '/update-many',
     protect({
-      allowedRoles: [
-        UserRoles.FindAllInAdmin,
-        UserRoles.InstitutionAdmin,
-        UserRoles.InstitutionEmployee,
-      ],
+      notAllowedRoles: [],
     }),
     adaptExpressRoute(updateManyNotificationsController)
   );
@@ -36,11 +27,7 @@ export default (router: Router) => {
   router.put(
     '/update-all',
     protect({
-      allowedRoles: [
-        UserRoles.FindAllInAdmin,
-        UserRoles.InstitutionAdmin,
-        UserRoles.InstitutionEmployee,
-      ],
+      notAllowedRoles: [],
     }),
     adaptExpressRoute(updateAllNotificationsController)
   );
@@ -48,11 +35,7 @@ export default (router: Router) => {
   router.put(
     '/:id',
     protect({
-      allowedRoles: [
-        UserRoles.FindAllInAdmin,
-        UserRoles.InstitutionAdmin,
-        UserRoles.InstitutionEmployee,
-      ],
+      notAllowedRoles: [],
     }),
     adaptExpressRoute(updateOneNotificationController)
   );
