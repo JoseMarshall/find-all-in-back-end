@@ -4,6 +4,7 @@ import { IComment } from '../../../v1/entities/comment/comment.types';
 import { Entity } from '../../../v1/entities/entity.types';
 import { IMissingPoster } from '../../../v1/entities/missing-poster/missing-poster.types';
 import { INotification } from '../../../v1/entities/notification/notification.types';
+import { ITotalCollection } from '../../../v1/entities/total-collection/total-collection.types';
 import { IUser } from '../../../v1/entities/user/user.types';
 import { GetAllNotifications } from '../../../v1/validators/types/notification';
 import { GetAll, GetOne } from '../../../v1/validators/types/sub-types';
@@ -57,6 +58,7 @@ export interface INotificationRepository {
 
 export interface IUnitOfWork {
   transaction: unknown;
+  makeTotalCollectionRepository: () => IRepository<ITotalCollection>;
   makeUserRepository: () => IRepository<IUser>;
   makeCommentRepository: () => IRepository<IComment>;
   makeNotificationRepository: () => INotificationRepository;
