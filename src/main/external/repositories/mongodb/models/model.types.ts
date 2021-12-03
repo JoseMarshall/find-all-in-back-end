@@ -4,6 +4,7 @@ import {
   Citizen,
   Comment,
   Common,
+  Employee,
   MissingPoster,
   MissingPosterStatus,
   Notification,
@@ -52,6 +53,13 @@ export interface TotalCollectionsDocument extends Document, Omit<Entity, Common.
 export interface CitizenDocument extends Document, Omit<Entity, Common.Id> {
   [Citizen.Name]: string;
   [Citizen.UserAccount]: string;
+}
+
+export interface EmployeeDocument extends Document, Omit<Entity, Common.Id> {
+  [Employee.Name]: string;
+  [Employee.UserAccount]: string;
+  [Employee.Role]: string;
+  [Employee.IdentificationNumber]: string;
 }
 
 export interface CommentDocument extends Document, Omit<Entity, Common.Id> {

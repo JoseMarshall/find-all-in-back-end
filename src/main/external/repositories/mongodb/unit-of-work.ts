@@ -5,6 +5,7 @@ import { NotificationRepository } from './index';
 import {
   CitizenModel,
   CommentModel,
+  EmployeeModel,
   MissingPosterModel,
   TotalCollectionModel,
   UserModel,
@@ -13,6 +14,9 @@ import {
 async function UnitOfWork() {
   const uow: IUnitOfWork = {
     transaction: null,
+    makeEmployeeRepository() {
+      return BaseRepository(EmployeeModel, this.transaction);
+    },
     makeTotalCollectionRepository() {
       return BaseRepository(TotalCollectionModel, this.transaction);
     },

@@ -22,6 +22,13 @@ export enum Citizen {
   UserAccount = 'userAccount',
 }
 
+export enum Employee {
+  Name = 'name',
+  IdentificationNumber = 'identificationNumber',
+  Role = 'role',
+  UserAccount = 'userAccount',
+}
+
 export enum UsersNotification {
   UserId = 'userId',
   Notification = 'notification',
@@ -67,6 +74,7 @@ export enum TotalCountCollection {
 
 export enum CollectionNames {
   Users = 'users',
+  Employees = 'employees',
   Notifications = 'notifications',
   TotalCountCollections = 'totalCountCollections',
   Citizens = 'citizens',
