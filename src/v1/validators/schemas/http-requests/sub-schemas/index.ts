@@ -14,11 +14,8 @@ export const idSchema = {
 };
 
 export const addressSchema = {
-  [Address.Province]: joi
-    .string()
-    .valid(...Object.values(AngolaProvinces))
-    .required(),
-  [Address.County]: joi.string().required(),
+  [Address.Province]: joi.string().valid(...Object.values(AngolaProvinces)),
+  [Address.County]: joi.string(),
   [Address.Street]: joi.string().allow(''),
   [Address.Number]: joi.string().allow(''),
 };

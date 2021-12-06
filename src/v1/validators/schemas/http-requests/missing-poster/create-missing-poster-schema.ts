@@ -8,11 +8,11 @@ import { addressSchema } from '../sub-schemas';
 const createMissingPosterSchema = joi
   .object({
     [MissingPoster.Name]: joi.string().required(),
-    [MissingPoster.LastSeenAt]: joi.string().required(),
+    [MissingPoster.LastSeenAt]: joi.string().allow('').required(),
     [MissingPoster.LastSeenDate]: joi.date().required(),
     [MissingPoster.Photo]: joi.string().uri().required(),
     [MissingPoster.Feedback]: joi.string().allow(''),
-    [MissingPoster.DisappearanceParticipation]: joi.string().uri(),
+    [MissingPoster.DisappearanceParticipation]: joi.string().allow('').uri(),
     [MissingPoster.CreatedBy]: joi.string().uuid().required(),
     [MissingPoster.Address]: addressSchema,
     [MissingPoster.Status]: joi

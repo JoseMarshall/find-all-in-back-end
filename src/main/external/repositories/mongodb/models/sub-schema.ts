@@ -7,11 +7,11 @@ export const addressSchema = new Schema(
   {
     [Address.Province]: {
       type: String,
-      required: true,
+      required: false,
       trim: true,
       enum: Object.values(AngolaProvinces),
     },
-    [Address.County]: { type: String, required: true, trim: true },
+    [Address.County]: { type: String, required: false, trim: true },
     [Address.Street]: { type: String, required: false, trim: true },
     [Address.Number]: { type: String, required: false, trim: true },
   },
