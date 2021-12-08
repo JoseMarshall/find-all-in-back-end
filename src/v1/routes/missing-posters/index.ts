@@ -4,6 +4,7 @@ import { UserRoles } from '../../../constants';
 import { adaptExpressRoute } from '../../../main/adapters/express-route-adapter';
 import { protect } from '../../../main/middleware';
 import createMissingPosterController from '../../factories/missing-poster/create-missing-poster';
+import deleteOneMissingPosterController from '../../factories/missing-poster/delete-one-missing-poster';
 import getAllMissingPostersController from '../../factories/missing-poster/get-all-missing-posters';
 import getOneMissingPosterGroupedByCountyController from '../../factories/missing-poster/get-missing-poster-grouped-by-county';
 import getOneMissingPosterGroupedByStatusController from '../../factories/missing-poster/get-missing-poster-grouped-by-status';
@@ -16,6 +17,14 @@ export default (router: Router) => {
   router.get('/group-by-county', adaptExpressRoute(getOneMissingPosterGroupedByCountyController));
 
   router.get('/:id', adaptExpressRoute(getOneMissingPosterController));
+
+  router.delete(
+    '/:id',
+    protect({
+      notAllowedRoles: [],
+    }),
+    adaptExpressRoute(deleteOneMissingPosterController)
+  );
 
   router.put(
     '/:id/like-dislike',

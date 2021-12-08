@@ -1,6 +1,7 @@
 import { MissingPoster, ServerConstants } from '../../../../../constants';
 import { ExpressRequestSession, HttpRequest } from '../../../../../main/adapters/adapters.types';
 import createMissingPosterSchemaValidator from './create-missing-poster-schema';
+import deleteOneMissingPosterSchemaValidator from './delete-one-missing-poster-schema';
 import getAllMissingPostersSchemaValidator from './get-all-missing-posters-schema';
 import getMissingPosterGroupedByCountySchemaValidator from './get-missing-poster-grouped-by-county-schema';
 import getMissingPosterGroupedByStatusSchemaValidator from './get-missing-poster-grouped-by-status-schema';
@@ -19,6 +20,9 @@ export const makeLikeMissingPosterValidator = () => async (req: HttpRequest) =>
 
 export const makeGetOneMissingPosterValidator = () => async (req: HttpRequest) =>
   getOneMissingPosterSchemaValidator(req.params);
+
+export const makeDeleteOneMissingPosterValidator = () => async (req: HttpRequest) =>
+  deleteOneMissingPosterSchemaValidator(req.params);
 
 export const makeGetAllMissingPostersValidator = () => async (req: HttpRequest) =>
   getAllMissingPostersSchemaValidator(req.query);
