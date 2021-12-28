@@ -1,4 +1,9 @@
-import { MissingPoster, ServerConstants } from '../../../../../constants';
+import {
+  MissingPoster,
+  MissingPosterApprovalStatus,
+  ServerConstants,
+  UserRoles,
+} from '../../../../../constants';
 import { ExpressRequestSession, HttpRequest } from '../../../../../main/adapters/adapters.types';
 import createMissingPosterSchemaValidator from './create-missing-poster-schema';
 import deleteOneMissingPosterSchemaValidator from './delete-one-missing-poster-schema';
@@ -27,8 +32,13 @@ export const makeDeleteOneMissingPosterValidator = () => async (req: ExpressRequ
     body: { [MissingPoster.UpdatedBy]: req[ServerConstants.Session].user.id },
   });
 
-export const makeGetAllMissingPostersValidator = () => async (req: HttpRequest) =>
-  getAllMissingPostersSchemaValidator(req.query);
+export const makeGetAllMissingPostersValidator = () => async (req: ExpressRequestSession) =>
+  req[ServerConstants.Session]?.user?.role !== UserRoles.FindAllInAdmin
+    ? getAllMissingPostersSchemaValidator({
+        ...req.query,
+        [MissingPoster.ApprovalStatus]: MissingPosterApprovalStatus.Approved,
+      })
+    : getAllMissingPostersSchemaValidator(req.query);
 
 export const makeGetMissingPosterGroupedByStatusValidator = () => async (req: HttpRequest) =>
   getMissingPosterGroupedByStatusSchemaValidator(req.query);

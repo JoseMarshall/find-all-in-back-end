@@ -1,4 +1,8 @@
-import { MissingPoster, MissingPosterStatus } from '../../../constants';
+import {
+  MissingPoster,
+  MissingPosterApprovalStatus,
+  MissingPosterStatus,
+} from '../../../constants';
 import { Entity, IAddress } from '../entity.types';
 
 export interface IMissingPoster extends Entity {
@@ -12,6 +16,7 @@ export interface IMissingPoster extends Entity {
   [MissingPoster.Feedback]?: string;
   [MissingPoster.DisappearanceParticipation]?: string;
   [MissingPoster.Status]: `${MissingPosterStatus}`;
+  [MissingPoster.ApprovalStatus]: `${MissingPosterApprovalStatus}`;
 }
 
 export type IMissingPosterInput = Pick<

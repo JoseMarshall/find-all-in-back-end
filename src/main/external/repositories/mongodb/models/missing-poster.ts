@@ -1,5 +1,10 @@
 /* eslint-disable no-underscore-dangle */
-import { CollectionNames, MissingPoster, MissingPosterStatus } from '../../../../../constants';
+import {
+  CollectionNames,
+  MissingPoster,
+  MissingPosterApprovalStatus,
+  MissingPosterStatus,
+} from '../../../../../constants';
 import { incTotalCount } from '../helpers/entity-model-fn';
 import { MongoHelper } from '../helpers/mongo-helper';
 import { MissingPosterDocument } from './model.types';
@@ -32,6 +37,13 @@ const missingPosterSchema = SchemaConstructor({
     trim: true,
     default: MissingPosterStatus.Missing,
     enum: Object.values(MissingPosterStatus),
+  },
+  [MissingPoster.ApprovalStatus]: {
+    type: String,
+    required: true,
+    trim: true,
+    default: MissingPosterApprovalStatus.Pending,
+    enum: Object.values(MissingPosterApprovalStatus),
   },
 });
 

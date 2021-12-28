@@ -15,6 +15,12 @@ export enum MissingPosterStatus {
   Seen = 'seen',
 }
 
+export enum MissingPosterApprovalStatus {
+  Pending = 'pending',
+  Approved = 'approved',
+  Denied = 'denied',
+}
+
 export enum Address {
   Province = 'province',
   County = 'county',

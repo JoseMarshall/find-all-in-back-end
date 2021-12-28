@@ -56,6 +56,7 @@ export enum MissingPoster {
   Address = 'address',
   Name = 'name',
   Status = 'status',
+  ApprovalStatus = 'approvalStatus',
   PreviousStatus = 'previousStatus',
   Photo = 'photo',
   DisappearanceParticipation = 'disappearanceParticipation',

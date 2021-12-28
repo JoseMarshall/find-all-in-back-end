@@ -6,6 +6,7 @@ import {
   Common,
   Employee,
   MissingPoster,
+  MissingPosterApprovalStatus,
   MissingPosterStatus,
   Notification,
   NotificationTypes,
@@ -28,6 +29,7 @@ export interface UserDocument extends Document, Omit<Entity, Common.Id> {
 export interface MissingPosterDocument extends Document, Omit<Entity, Common.Id> {
   [MissingPoster.Name]: string;
   [MissingPoster.Status]: `${MissingPosterStatus}`;
+  [MissingPoster.ApprovalStatus]: `${MissingPosterApprovalStatus}`;
   [MissingPoster.LastSeenDate]: string;
   [MissingPoster.LastSeenAt]: string;
   [MissingPoster.Photo]: string;
