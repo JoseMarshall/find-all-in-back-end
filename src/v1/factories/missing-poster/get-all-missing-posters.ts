@@ -15,7 +15,15 @@ const getAllMissingPoster = makeGetAllEntityController<IMissingPoster, GetAllMis
         ? { ...query, [MissingPoster.Status]: { $in: query.status?.split('|')! } }
         : query;
 
-    return formatQueryToRange(queryStatus, [
+    const queryApprovalStatus =
+      MissingPoster.ApprovalStatus in queryStatus
+        ? {
+            ...queryStatus,
+            [MissingPoster.ApprovalStatus]: { $in: queryStatus.approvalStatus?.split('|')! },
+          }
+        : queryStatus;
+
+    return formatQueryToRange(queryApprovalStatus, [
       { name: MissingPoster.LastSeenDate, accuracy: 1, splitter: ' to ', dataType: 'date' },
     ]);
   },

@@ -12,7 +12,9 @@ const getAllMissingPosterSchema = joi
     [MissingPoster.Name]: joi.string(),
     [MissingPoster.LastSeenDate]: joi.string().pattern(dateRangeRegex),
     [MissingPoster.CreatedBy]: joi.string().uuid(),
-    [MissingPoster.ApprovalStatus]: joi.string(),
+    [MissingPoster.ApprovalStatus]: joi
+      .string()
+      .pattern(/^(pending\||approved\||denied\|)*(pending|approved|denied){1}$/),
     [MissingPoster.Status]: joi
       .string()
       .pattern(/^(seen\||missing\||found\|)*(seen|missing|found){1}$/),

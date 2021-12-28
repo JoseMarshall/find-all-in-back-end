@@ -1,10 +1,10 @@
-import { DeletedEntity } from '../../../main/external/repositories/repository.types';
 import makeDeleteEntityController from '../../controllers/delete-entity';
+import { IMissingPoster } from '../../entities/missing-poster/missing-poster.types';
 import { deleteMissingPosterUC } from '../../usecases/delete-missing-poster';
 import { makeDeleteOneMissingPosterValidator } from '../../validators/schemas/http-requests/missing-poster';
-import { GetOne } from '../../validators/types/sub-types';
+import { DeleteOnePoster } from '../../validators/types/missing-poster';
 
-const deleteOneMissingPoster = makeDeleteEntityController<DeletedEntity, GetOne>({
+const deleteOneMissingPoster = makeDeleteEntityController<IMissingPoster, DeleteOnePoster>({
   deleteAll: deleteMissingPosterUC(),
   requestValidator: makeDeleteOneMissingPosterValidator(),
 });

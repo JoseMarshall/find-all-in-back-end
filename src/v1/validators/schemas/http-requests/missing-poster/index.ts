@@ -5,8 +5,10 @@ import {
   UserRoles,
 } from '../../../../../constants';
 import { ExpressRequestSession, HttpRequest } from '../../../../../main/adapters/adapters.types';
+import approveMissingPosterSchemaValidator from './approve-missing-poster-schema';
 import createMissingPosterSchemaValidator from './create-missing-poster-schema';
 import deleteOneMissingPosterSchemaValidator from './delete-one-missing-poster-schema';
+import denyMissingPosterSchemaValidator from './deny-missing-poster-schema';
 import getAllMissingPostersSchemaValidator from './get-all-missing-posters-schema';
 import getMissingPosterGroupedByCountySchemaValidator from './get-missing-poster-grouped-by-county-schema';
 import getMissingPosterGroupedByStatusSchemaValidator from './get-missing-poster-grouped-by-status-schema';
@@ -25,6 +27,12 @@ export const makeLikeMissingPosterValidator = () => async (req: HttpRequest) =>
 
 export const makeGetOneMissingPosterValidator = () => async (req: HttpRequest) =>
   getOneMissingPosterSchemaValidator(req.params);
+
+export const makeApproveMissingPosterValidator = () => async (req: HttpRequest) =>
+  approveMissingPosterSchemaValidator(req.params);
+
+export const makeDenyMissingPosterValidator = () => async (req: HttpRequest) =>
+  denyMissingPosterSchemaValidator(req.params);
 
 export const makeDeleteOneMissingPosterValidator = () => async (req: ExpressRequestSession) =>
   deleteOneMissingPosterSchemaValidator({

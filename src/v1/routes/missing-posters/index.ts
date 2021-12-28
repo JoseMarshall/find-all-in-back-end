@@ -3,8 +3,10 @@ import { Router } from 'express';
 import { UserRoles } from '../../../constants';
 import { adaptExpressRoute } from '../../../main/adapters/express-route-adapter';
 import { protect } from '../../../main/middleware';
+import approveMissingPosterController from '../../factories/missing-poster/approve-missing-poster';
 import createMissingPosterController from '../../factories/missing-poster/create-missing-poster';
 import deleteOneMissingPosterController from '../../factories/missing-poster/delete-one-missing-poster';
+import denyMissingPosterController from '../../factories/missing-poster/deny-missing-poster';
 import getAllMissingPostersController from '../../factories/missing-poster/get-all-missing-posters';
 import getOneMissingPosterGroupedByCountyController from '../../factories/missing-poster/get-missing-poster-grouped-by-county';
 import getOneMissingPosterGroupedByStatusController from '../../factories/missing-poster/get-missing-poster-grouped-by-status';
@@ -15,6 +17,22 @@ export default (router: Router) => {
   router.get('/group-by-status', adaptExpressRoute(getOneMissingPosterGroupedByStatusController));
 
   router.get('/group-by-county', adaptExpressRoute(getOneMissingPosterGroupedByCountyController));
+
+  router.get(
+    '/:id/approve',
+    protect({
+      allowedRoles: [UserRoles.FindAllInAdmin, UserRoles.InstitutionAdmin],
+    }),
+    adaptExpressRoute(approveMissingPosterController)
+  );
+
+  router.get(
+    '/:id/deny',
+    protect({
+      allowedRoles: [UserRoles.FindAllInAdmin, UserRoles.InstitutionAdmin],
+    }),
+    adaptExpressRoute(denyMissingPosterController)
+  );
 
   router.get('/:id', adaptExpressRoute(getOneMissingPosterController));
 
