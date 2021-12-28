@@ -43,6 +43,7 @@ export enum Notification {
 export enum NotificationTypes {
   Create = 'create',
   Update = 'update',
+  Deleted = 'deleted',
 }
 
 export enum Comment {

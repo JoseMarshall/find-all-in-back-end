@@ -15,3 +15,10 @@ export interface UpdateLikesPoster {
     [MissingPoster.Dislikes]: number;
   };
 }
+
+export interface DeleteOnePoster {
+  params: { id: string };
+  body: {
+    [MissingPoster.UpdatedBy]: string;
+  };
+}

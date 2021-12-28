@@ -21,8 +21,11 @@ export const makeLikeMissingPosterValidator = () => async (req: HttpRequest) =>
 export const makeGetOneMissingPosterValidator = () => async (req: HttpRequest) =>
   getOneMissingPosterSchemaValidator(req.params);
 
-export const makeDeleteOneMissingPosterValidator = () => async (req: HttpRequest) =>
-  deleteOneMissingPosterSchemaValidator(req.params);
+export const makeDeleteOneMissingPosterValidator = () => async (req: ExpressRequestSession) =>
+  deleteOneMissingPosterSchemaValidator({
+    ...req,
+    body: { [MissingPoster.UpdatedBy]: req[ServerConstants.Session].user.id },
+  });
 
 export const makeGetAllMissingPostersValidator = () => async (req: HttpRequest) =>
   getAllMissingPostersSchemaValidator(req.query);

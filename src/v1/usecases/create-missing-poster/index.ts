@@ -20,7 +20,6 @@ export function createMissingPosterUC() {
     try {
       await unitOfWork.startTransaction();
 
-      // console.log('data :>> ', data);
       const missingPosterRepo = unitOfWork.makeMissingPosterRepository();
       const notificationRepo = unitOfWork.makeNotificationRepository();
 
