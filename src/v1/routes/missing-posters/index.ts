@@ -34,6 +34,14 @@ export default (router: Router) => {
     adaptExpressRoute(denyMissingPosterController)
   );
 
+  router.get(
+    '/admin',
+    protect({
+      allowedRoles: [UserRoles.FindAllInAdmin, UserRoles.InstitutionAdmin],
+    }),
+    adaptExpressRoute(getAllMissingPostersController)
+  );
+
   router.get('/:id', adaptExpressRoute(getOneMissingPosterController));
 
   router.delete(

@@ -41,12 +41,14 @@ export const makeDeleteOneMissingPosterValidator = () => async (req: ExpressRequ
   });
 
 export const makeGetAllMissingPostersValidator = () => async (req: ExpressRequestSession) =>
-  req[ServerConstants.Session]?.user?.role !== UserRoles.FindAllInAdmin
-    ? getAllMissingPostersSchemaValidator({
+  [UserRoles.FindAllInAdmin, UserRoles.InstitutionAdmin].includes(
+    req[ServerConstants.Session]?.user?.role as UserRoles
+  )
+    ? getAllMissingPostersSchemaValidator(req.query)
+    : getAllMissingPostersSchemaValidator({
         ...req.query,
         [MissingPoster.ApprovalStatus]: MissingPosterApprovalStatus.Approved,
-      })
-    : getAllMissingPostersSchemaValidator(req.query);
+      });
 
 export const makeGetMissingPosterGroupedByStatusValidator = () => async (req: HttpRequest) =>
   getMissingPosterGroupedByStatusSchemaValidator(req.query);
