@@ -1,17 +1,22 @@
-import { CollectionNames, UsersNotification } from '../../../../../constants';
+import { Schema } from 'mongoose';
+
+import { CollectionNames, Common, UsersNotification } from '../../../../../constants';
 import { MongoHelper } from '../helpers/mongo-helper';
 import { UserNotificationDocument } from './model.types';
-import SchemaConstructor from './schema-constructor';
 
-const userNotificationSchema = SchemaConstructor({
-  [UsersNotification.UserId]: { type: String, required: true },
-  [UsersNotification.IsRead]: { type: Boolean, required: true, default: true },
-  [UsersNotification.Notification]: {
-    type: String,
-    ref: CollectionNames.UsersNotifications,
-    required: true,
+const userNotificationSchema = new Schema<any, any>(
+  {
+    [Common.IsDeleted]: { type: Boolean, default: false },
+    [UsersNotification.UserId]: { type: String, required: true },
+    [UsersNotification.IsRead]: { type: Boolean, required: true, default: true },
+    [UsersNotification.Notification]: {
+      type: String,
+      ref: CollectionNames.UsersNotifications,
+      required: true,
+    },
   },
-});
+  { timestamps: true, versionKey: false }
+);
 
 userNotificationSchema.set('toObject', {
   virtuals: true,
